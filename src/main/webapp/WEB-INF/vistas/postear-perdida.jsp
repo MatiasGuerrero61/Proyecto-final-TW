@@ -38,8 +38,11 @@
 				<label for="masInformacion">Mas informacion: </label>
 				<form:textarea path="masInformacion" id="masInformacion" rows="5" cols="50" class="form-control"/>
 			</div>
+			<div style="float:right">
+				<a href="./"><button class="btn btn-lg btn-secondary" >Vovler</button></a>
+				<button class="btn btn-lg btn-danger" Type="submit"/>Postear</button>
+			</div>
 			
-			<button class="btn btn-lg btn-danger btn-block" Type="submit"/>Postear</button>
 			
 			</form:form>
 		</div>
