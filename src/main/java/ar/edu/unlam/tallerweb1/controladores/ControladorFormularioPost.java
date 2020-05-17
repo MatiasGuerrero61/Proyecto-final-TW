@@ -27,10 +27,11 @@ public class ControladorFormularioPost{
 		this.guardarPost = servicioGuardarPost;
 	}
 	
-	@RequestMapping(path = "/formularioPost", method = RequestMethod.GET)
-	public ModelAndView irAFormularioPost() {
-		return new ModelAndView("formularioPost");
+	@RequestMapping(path = "/postear-perdida", method = RequestMethod.GET)
+	public ModelAndView irAPostearPerdida() {
+		return new ModelAndView("postear-perdida");
 	}
+	
 	@ModelAttribute("guardarPost") 
 	public PostMascotaPerdida getPostMascotaPerdida(){ 
 	    return new PostMascotaPerdida();

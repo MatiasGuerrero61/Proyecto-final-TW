@@ -14,11 +14,6 @@ public class ControladorHome {
 			return new ModelAndView("home");
 		}
 		
-		@RequestMapping(path = "/postear-perdida", method = RequestMethod.GET)
-		public ModelAndView irAPostearPerdida() {
-			return new ModelAndView("postear-perdida");
-		}
-		
 		@RequestMapping(path = "/postear-anuncio", method = RequestMethod.GET)
 		public ModelAndView irAPostearAnuncio() {
 			return new ModelAndView("postear-anuncio");
