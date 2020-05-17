@@ -20,8 +20,16 @@
 	<body>
 		<div class = "container">
 			<h1>Lista de anuncios de mascotas perdidas</h1>
+			<c:forEach items="${posts}" var="post">
+				<h4><span>Id: ${post.getId()}</span></h4>
+				<h4><span>Raza: ${post.getRaza()}</span></h4>
+				<h4><span>Descripcion: ${post.getDescripcion()}</span></h4>
+				<h4><span>Titulo: ${post.getTitulo()}</span></h4>
+			</c:forEach>
 			
-			
+			<h4><span>${posts[0].getRaza()}</span></h4>
+			<br>
+		   
 		</div>
 		
 		<!-- Placed at the end of the document so the pages load faster -->

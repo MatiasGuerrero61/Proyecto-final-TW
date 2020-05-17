@@ -6,9 +6,11 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import ar.edu.unlam.tallerweb1.modelo.PostMascotaPerdida;
 
+@Repository("repositorioPostMascotaPerdidaImpl")
 public class RepositorioPostMascotaPerdidaImpl implements RepositorioPostMascotaPerdida{
 	
 	private SessionFactory sessionFactory;

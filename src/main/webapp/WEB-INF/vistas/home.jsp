@@ -43,7 +43,7 @@
 			<div class = "d-flex justify-content-around aling-items-between">
 				<div class="card section">
 					<p>Lista de anuncios de mascotas perdidas!</p>
-					<a href = "./postear-perdida"><button class="btn btn-danger">Listar</button></a>
+					<a href = "./lista-perdida"><button class="btn btn-danger">Listar</button></a>
 				</div>
 				<div class="card section">
 					<p>Anuncios de paseadores de perros</p>
