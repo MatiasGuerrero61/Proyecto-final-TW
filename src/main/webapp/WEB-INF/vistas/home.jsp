@@ -40,6 +40,20 @@
 					<a href = "./postear-mascotas"><button class="btn btn-success">Subir</button></a>
 				</div>
 			</div>
+			<div class = "d-flex justify-content-around aling-items-between">
+				<div class="card section">
+					<p>Lista de anuncios de mascotas perdidas!</p>
+					<a href = "./postear-perdida"><button class="btn btn-danger">Listar</button></a>
+				</div>
+				<div class="card section">
+					<p>Anuncios de paseadores de perros</p>
+					<a href = "./postear-anuncio"><button class="btn btn-primary">Listar</button></a>
+				</div>
+				<div class="card section">
+					<p>Posteos de mascotas</p>
+					<a href = "./postear-mascotas"><button class="btn btn-success">Listar</button></a>
+				</div>
+			</div>
 		</div>
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
