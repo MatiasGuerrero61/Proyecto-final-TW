@@ -10,13 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.unlam.tallerweb1.modelo.PostMascotaPerdida;
 
-@Repository("repositorioPostMascotaPerdidaImpl")
-public class RepositorioPostMascotaPerdidaImpl implements RepositorioPostMascotaPerdida{
-	
-	private SessionFactory sessionFactory;
+@Repository("repositorioMascotaPerdidaImpl")
+public class RepositorioMascotaPerdidaImp implements RepositorioMascotaPerdida{
 
-    @Autowired
-	public RepositorioPostMascotaPerdidaImpl(SessionFactory sessionFactory){
+	private SessionFactory sessionFactory;
+	
+	@Autowired
+	public RepositorioMascotaPerdidaImp(SessionFactory sessionFactory){
 		this.sessionFactory = sessionFactory;
 	}
 	
@@ -27,6 +27,11 @@ public class RepositorioPostMascotaPerdidaImpl implements RepositorioPostMascota
 		List<PostMascotaPerdida> posts = criteria.list();
 		return posts;
 	}
-	
-	
+
+	@Override
+	public void saveMascotasPerdidas(PostMascotaPerdida post) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(post);
+	}
+
 }

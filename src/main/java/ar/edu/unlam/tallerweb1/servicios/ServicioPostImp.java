@@ -11,25 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.PostMascotaPerdida;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioPostMascotaPerdida;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioMascotaPerdida;
 @Service("ServicioPost")
 @Transactional
 public class ServicioPostImp implements ServicioPost {
-
-	@Inject
-	private SessionFactory sessionFactory;
 	
-	private RepositorioPostMascotaPerdida servicioListaDao;
+	private RepositorioMascotaPerdida servicioListaDao;
 	
 	@Autowired
-	public ServicioPostImp(RepositorioPostMascotaPerdida servicioListaDao) {
+	public ServicioPostImp(RepositorioMascotaPerdida servicioListaDao) {
 		this.servicioListaDao = servicioListaDao;
 	}
 	
 	@Override
 	public void guardarPost(PostMascotaPerdida post) {
-		Session session = sessionFactory.getCurrentSession();
-		session.save(post);
+		servicioListaDao.saveMascotasPerdidas(post);
 	}
 
 	@Override
