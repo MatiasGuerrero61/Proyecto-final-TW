@@ -32,7 +32,7 @@
 				<div class="card section">
 					<h3>¿Sos paseador de perros?</h3>
 					<p>Subi tu anuncio a nuestra pagina</p>
-					<a href = "./postear-anuncio"><button class="btn btn-primary">Anunciar</button></a>
+					<a href = "./paseador/postear-anuncio"><button class="btn btn-primary">Anunciar</button></a>
 				</div>
 				<div class="card section">
 					<h3>¿Queres que el mundo vea a tu mascota?</h3>
@@ -47,7 +47,7 @@
 				</div>
 				<div class="card section">
 					<p>Anuncios de paseadores de perros</p>
-					<a href = "./postear-anuncio"><button class="btn btn-primary">Listar</button></a>
+					<a href = "./paseador/lista-anuncio"><button class="btn btn-primary">Listar</button></a>
 				</div>
 				<div class="card section">
 					<p>Posteos de mascotas</p>
