@@ -17,19 +17,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.PostMascotaPerdida;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.servicios.ServicioGuardarPost;
-import ar.edu.unlam.tallerweb1.servicios.ServicioObtenerListaPerdida;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPost;
 
 @Controller
 @RequestMapping("/mascota-perdida")
 public class ControladorMascotaPerdida{
-	private ServicioGuardarPost guardarPost;
-	private ServicioObtenerListaPerdida servicioLista;
+	private ServicioPost servicioPost;
 	
 	@Autowired
-	public ControladorMascotaPerdida(ServicioGuardarPost servicioGuardarPost, ServicioObtenerListaPerdida serviciolista){
-		this.guardarPost = servicioGuardarPost;
-		this.servicioLista = serviciolista;
+	public ControladorMascotaPerdida(ServicioPost servicioPost){
+		this.servicioPost = servicioPost;
 	}
 	
 	@RequestMapping(path = "/postear-perdida", method = RequestMethod.GET)
@@ -45,7 +42,7 @@ public class ControladorMascotaPerdida{
 	@RequestMapping(path = "/guardar-post", method = RequestMethod.POST)
 	public ModelAndView guardarPost(@ModelAttribute("guardarPost") PostMascotaPerdida post,BindingResult result, HttpServletRequest request) {
 		
-		guardarPost.guardarPost(post);
+		servicioPost.guardarPost(post);
 		
 		return new ModelAndView("redirect:/");
 	}
@@ -54,7 +51,7 @@ public class ControladorMascotaPerdida{
 	public ModelAndView irAListaPerdida() {
 		
 		ModelMap model = new ModelMap();
-		List<PostMascotaPerdida> posts = servicioLista.obtenerListaPerdida();
+		List<PostMascotaPerdida> posts = servicioPost.obtenerListaPerdida();
 		if(posts != null) {
 			model.put("posts", posts);
 			return new ModelAndView("lista-perdida", model);
