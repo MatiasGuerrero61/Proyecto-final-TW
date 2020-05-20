@@ -28,7 +28,7 @@
 			</div>
 			<div>
 				<label for="raza">Raza: </label>
-				<form:input path="raza" type="raza" id="raza" class="form-control"/>
+				<form:input path="raza" type="text" id="raza" class="form-control"/>
 			</div>
 			<div>
 				<label for="descripcion">Descripcion: </label>

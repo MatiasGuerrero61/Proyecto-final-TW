@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,15 +18,18 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unlam.tallerweb1.modelo.PostMascotaPerdida;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGuardarPost;
+import ar.edu.unlam.tallerweb1.servicios.ServicioObtenerListaPerdida;
 
 @Controller
-public class ControladorFormularioPost{
+@RequestMapping("/mascota-perdida")
+public class ControladorMascotaPerdida{
 	private ServicioGuardarPost guardarPost;
-	
+	private ServicioObtenerListaPerdida servicioLista;
 	
 	@Autowired
-	public ControladorFormularioPost(ServicioGuardarPost servicioGuardarPost){
+	public ControladorMascotaPerdida(ServicioGuardarPost servicioGuardarPost, ServicioObtenerListaPerdida serviciolista){
 		this.guardarPost = servicioGuardarPost;
+		this.servicioLista = serviciolista;
 	}
 	
 	@RequestMapping(path = "/postear-perdida", method = RequestMethod.GET)
@@ -36,11 +41,28 @@ public class ControladorFormularioPost{
 	public PostMascotaPerdida getPostMascotaPerdida(){ 
 	    return new PostMascotaPerdida();
 	}
+	
 	@RequestMapping(path = "/guardar-post", method = RequestMethod.POST)
 	public ModelAndView guardarPost(@ModelAttribute("guardarPost") PostMascotaPerdida post,BindingResult result, HttpServletRequest request) {
 		
 		guardarPost.guardarPost(post);
 		
 		return new ModelAndView("redirect:/");
+	}
+	
+	@RequestMapping("/lista-perdida")
+	public ModelAndView irAListaPerdida() {
+		
+		ModelMap model = new ModelMap();
+		List<PostMascotaPerdida> posts = servicioLista.obtenerListaPerdida();
+		if(posts != null) {
+			model.put("posts", posts);
+			return new ModelAndView("lista-perdida", model);
+		}
+		else {// si el usuario no existe agrega un mensaje de error en el modelo.
+			model.put("error", "No hay ningun posteo");
+	}
+	return new ModelAndView("lista-perdida", model);
+		
 	}
 }
