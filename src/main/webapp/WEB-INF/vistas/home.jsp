@@ -27,7 +27,7 @@
 				<div class="card section">
 					<h3>¿Perdiste a tu mascota?</h3>
 					<p>Crea un anuncia de perdida!</p>
-					<a href = "./postear-perdida"><button class="btn btn-danger">Postear</button></a>
+					<a href = "./mascota-perdida/postear-perdida"><button class="btn btn-danger">Postear</button></a>
 				</div>
 				<div class="card section">
 					<h3>¿Sos paseador de perros?</h3>
@@ -43,7 +43,7 @@
 			<div class = "d-flex justify-content-around aling-items-between">
 				<div class="card section">
 					<p>Lista de anuncios de mascotas perdidas!</p>
-					<a href = "./lista-perdida"><button class="btn btn-danger">Listar</button></a>
+					<a href = "./mascota-perdida/lista-perdida"><button class="btn btn-danger">Listar</button></a>
 				</div>
 				<div class="card section">
 					<p>Anuncios de paseadores de perros</p>

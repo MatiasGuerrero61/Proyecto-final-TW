@@ -4,7 +4,8 @@ import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.PostMascotaPerdida;
 
-public interface RepositorioPostMascotaPerdida {
+public interface RepositorioMascotaPerdida  {
 
 	List<PostMascotaPerdida> getListaMascotasPerdidas();
+	void saveMascotasPerdidas(PostMascotaPerdida post);
 }
