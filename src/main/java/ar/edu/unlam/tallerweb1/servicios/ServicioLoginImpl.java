@@ -17,11 +17,15 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 // en hibernateCOntext.xml. De esta manera todos los metodos de cualquier dao invocados dentro de un servicio se ejecutan en la misma transaccion
 @Service("servicioLogin")
 @Transactional
+<<<<<<< HEAD
 public class ServicioLoginImpl implements ServicioLogin {
 	
 	static final String ID_USUARIO = "ID_USUARIO";
 	static final String ROL = "ROL";
 	static final String EMAIL = "EMAIL";
+=======
+public class ServicioLoginImpl implements ServicioLogin{
+>>>>>>> ee00fb924b5cbb48e58bfb66c113dc189cb6e523
 
 	private RepositorioUsuario servicioLoginDao;
 
