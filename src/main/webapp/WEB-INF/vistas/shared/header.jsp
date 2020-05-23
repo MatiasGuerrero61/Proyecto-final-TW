@@ -6,7 +6,7 @@
 <html>
 	<head>
 		
-		<link href="../css/bootstrap4.min.css" rel="stylesheet" type="text/css" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<link href="../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
 		<meta charset="UTF-8">
 	</head>
