@@ -11,7 +11,7 @@ public class ControladorHome {
 	// Escucha la URL /home por GET, y redirige a una vista.
 		@RequestMapping(path = "/home", method = RequestMethod.GET)
 		public ModelAndView irAHome() {
-			return new ModelAndView("home");
+			return new ModelAndView("home/index");
 		}
 		
 		@RequestMapping(path = "/mascota-perdida/postear-anuncio", method = RequestMethod.GET)

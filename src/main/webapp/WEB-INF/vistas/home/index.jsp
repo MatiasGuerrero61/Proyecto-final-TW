@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<!-- Bootstrap core CSS -->
-	    <link href="css/bootstrap4.min.css" rel="stylesheet" >
-	    <!-- Bootstrap theme -->
-	    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-	    <style type="text/css">
+<%@include file="../shared/header.jsp" %>
+<style type="text/css">
 	    	.section{
 	    		width: 30%;
 	    		padding: 1em;
@@ -18,8 +12,8 @@
 	    		right: 1em;
 	    	}
 	    </style>
-	</head>
 	<body>
+	
 		<div class = "container">
 			<h1>Bienvenidos a la pagina de mascotas</h1>
 			
@@ -55,9 +49,4 @@
 				</div>
 			</div>
 		</div>
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
-		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-		<script src="js/bootstrap4.min.js" type="text/javascript"></script>
-	</body>
-</html>
+<%@include file="../shared/footer.jsp" %>
