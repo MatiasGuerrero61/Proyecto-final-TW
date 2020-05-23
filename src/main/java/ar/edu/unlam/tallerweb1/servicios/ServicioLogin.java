@@ -14,8 +14,6 @@ public interface ServicioLogin {
 	boolean estaLogueado(HttpServletRequest request);
 	void cerrarSesion(HttpServletRequest request);
 	void iniciarSesion(HttpServletRequest request, Usuario usuario);
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> df0c906d3ff8ddcdc5dfdf541fe5323893174cf1
+
