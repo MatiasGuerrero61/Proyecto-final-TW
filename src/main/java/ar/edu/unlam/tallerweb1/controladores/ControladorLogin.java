@@ -74,4 +74,8 @@ public class ControladorLogin {
 		return new ModelAndView("redirect:/login");
 	}
 	
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> df0c906d3ff8ddcdc5dfdf541fe5323893174cf1
