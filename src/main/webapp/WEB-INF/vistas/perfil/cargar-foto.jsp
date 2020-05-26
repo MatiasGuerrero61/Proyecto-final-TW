@@ -9,9 +9,14 @@
        <input type="submit" class="form-control btn btn-success" value="Subir">
       </div>
      </form>
-
-   <c:if test="${not empty msj}">
+     
+     <c:if test="${not empty msj}">
 			        <h4><span>${msj}</span></h4>
+			        <br>
+		        </c:if>	
+
+   <c:if test="${not empty sessionScope.FOTO_DE_PERFIL}">
+			        <img src="../files/${sessionScope.FOTO_DE_PERFIL}" alt="" class="img-thumbnail">
 			        <br>
 		        </c:if>	
 

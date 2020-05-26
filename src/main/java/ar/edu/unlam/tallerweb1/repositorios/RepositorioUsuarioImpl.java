@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Imagen;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -39,6 +40,15 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 	public Usuario consultarUsuarioPorId (Long id) {
 		final Session session = sessionFactory.getCurrentSession();
 		return (Usuario) session.get(Usuario.class,id);
+	}
+
+	@Override
+	public Imagen actualizarFotoDePerfil(Usuario usuario, Imagen foto) {
+		final Session session = sessionFactory.getCurrentSession();
+		usuario.setFotoDePerfil(foto);
+		session.saveOrUpdate(usuario);
+		Usuario usuarioActualizado = session.get(Usuario.class,usuario.getId()); 
+		return usuarioActualizado.getFotoDePerfil();
 	}
 
 }

@@ -1,20 +1,5 @@
 <%@include file="../shared/header.jsp" %>
-<style type="text/css">
-	    	.section{
-	    		width: 30%;
-	    		padding: 1em;
-	    		height: 215px;
-	    		position: relative;
-	    	}
-	    	.btn{
-	    		position: absolute;
-	    		bottom: 1em;
-	    		right: 1em;
-	    	}
-	    </style>
-	<body>
-	
-		<div class = "container">
+
 			<h1>Bienvenidos a la pagina de mascotas</h1>
 			
 			<div class = "d-flex justify-content-around aling-items-between">

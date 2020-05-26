@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import ar.edu.unlam.tallerweb1.modelo.Album;
+import ar.edu.unlam.tallerweb1.modelo.Imagen;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlbum;
 
@@ -45,7 +46,7 @@ public class ServicioArchivosImpl implements ServicioArchivos {
 	}
 	
 	@Override
-	public boolean guardarImagen(MultipartFile file, String path, Album album){
+	public Imagen guardarImagen(MultipartFile file, String path, Album album){
 		
 	    try {
 	    	
@@ -55,15 +56,13 @@ public class ServicioArchivosImpl implements ServicioArchivos {
 	            Path pathcompleto = Paths.get( path + nombreRandom ); 
 	            Files.write(pathcompleto,file.getBytes());
 
-	            if ( servicioArchivosAlbumDao.guardarImagen(nombreRandom, " ", album) != null) {
-	            	return true;
-	            }
+	            return servicioArchivosAlbumDao.guardarImagen(nombreRandom, " ", album);
 	    	}
 	    	
-	    	return false;
+	    	return null;
 	    	
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
 
 	}

@@ -1,9 +1,11 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 // Clase que modela el concepto de Usuario, la anotacion @Entity le avisa a hibernate que esta clase es persistible
 // el paquete ar.edu.unlam.tallerweb1.modelo esta indicado en el archivo hibernateCOntext.xml para que hibernate
@@ -21,6 +23,15 @@ public class Usuario {
 	private String password;
 	private String rol;
 	
+	@OneToOne(optional=true)
+	private Imagen fotoDePerfil;
+	
+	public Imagen getFotoDePerfil() {
+		return fotoDePerfil;
+	}
+	public void setFotoDePerfil(Imagen fotoDePerfil) {
+		this.fotoDePerfil = fotoDePerfil;
+	}
 	public Long getId() {
 		return id;
 	}

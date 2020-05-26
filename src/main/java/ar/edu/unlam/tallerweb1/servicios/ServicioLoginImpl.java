@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
+import ar.edu.unlam.tallerweb1.modelo.Imagen;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 // Implementacion del Servicio de usuarios, la anotacion @Service indica a Spring que esta clase es un componente que debe
@@ -23,6 +24,7 @@ public class ServicioLoginImpl implements ServicioLogin {
 	static final String ID_USUARIO = "ID_USUARIO";
 	static final String ROL = "ROL";
 	static final String EMAIL = "EMAIL";
+	static final String FOTO_DE_PERFIL = "FOTO_DE_PERFIL";
 
 	private RepositorioUsuario servicioLoginDao;
 
@@ -63,6 +65,15 @@ public class ServicioLoginImpl implements ServicioLogin {
 		request.getSession().setAttribute(ID_USUARIO, usuario.getId());
 		request.getSession().setAttribute(EMAIL, usuario.getEmail());
 		request.getSession().setAttribute(ROL, usuario.getRol());		
+		if (usuario.getFotoDePerfil() !=null) {
+			request.getSession().setAttribute(FOTO_DE_PERFIL, usuario.getFotoDePerfil().getNombre());
+		}
+		
+	}
+
+	@Override
+	public void actualizarFotoDeUsuarioConectado(HttpServletRequest request, Imagen foto) {
+		request.getSession().setAttribute(FOTO_DE_PERFIL, foto.getNombre());	
 	}
 
 }
