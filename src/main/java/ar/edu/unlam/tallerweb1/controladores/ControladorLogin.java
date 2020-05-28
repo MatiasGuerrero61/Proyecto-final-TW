@@ -53,7 +53,7 @@ public class ControladorLogin {
 		Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
 		if (usuarioBuscado != null) {
 			servicioLogin.iniciarSesion(request,usuarioBuscado);
-			return new ModelAndView("redirect:/home");
+			return new ModelAndView("redirect:/home/index");
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
 			model.put("error", "Usuario o clave incorrecta");

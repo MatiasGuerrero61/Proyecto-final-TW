@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ControladorHome {
 
 	// Escucha la URL /home por GET, y redirige a una vista.
-		@RequestMapping(path = "/home", method = RequestMethod.GET)
+		@RequestMapping(path = "/home/index", method = RequestMethod.GET)
 		public ModelAndView irAHome() {
 			return new ModelAndView("home/index");
 		}

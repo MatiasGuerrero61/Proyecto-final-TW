@@ -5,10 +5,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-<<<<<<< HEAD
-		
-=======
->>>>>>> df0c906d3ff8ddcdc5dfdf541fe5323893174cf1
 		<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<link href="../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
 		<meta charset="UTF-8">
