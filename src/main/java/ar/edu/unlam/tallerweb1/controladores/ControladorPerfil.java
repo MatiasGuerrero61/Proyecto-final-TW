@@ -11,9 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Album;
+import ar.edu.unlam.tallerweb1.modelo.Imagen;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioArchivos;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
 @RequestMapping(value="/perfil")
@@ -21,11 +23,13 @@ public class ControladorPerfil {
 	
 	private ServicioArchivos servicioArchivos;
 	private ServicioLogin servicioLogin;
-
+	private ServicioUsuario servicioUsuario;	
+	
 	@Autowired
-	public ControladorPerfil(ServicioArchivos servicioArchivos, ServicioLogin servicioLogin){
+	public ControladorPerfil(ServicioArchivos servicioArchivos, ServicioLogin servicioLogin, ServicioUsuario servicioUsuario){
 		this.servicioLogin = servicioLogin;
 		this.servicioArchivos = servicioArchivos;
+		this.servicioUsuario = servicioUsuario;
 	}
 		 
 	 @RequestMapping(path = "/cargar-foto", method = RequestMethod.GET)
@@ -45,10 +49,15 @@ public class ControladorPerfil {
         	Album albumDePerfil = servicioArchivos.buscarOCrearAlbumDePerfil(usuario);
             
             if (albumDePerfil != null) {
-            	if( servicioArchivos.guardarImagen(file, path, albumDePerfil) ) {
-                	ModelMap modelo = new ModelMap();
-        			modelo.put("msj","imagen cargada correctamente");
-        			return new ModelAndView("perfil/cargar-foto",modelo);
+            	Imagen fotoDePerfil = servicioArchivos.guardarImagen(file, path, albumDePerfil);
+            	if( fotoDePerfil != null) {
+            		fotoDePerfil = servicioUsuario.actualizarFotoDePerfil(usuario, fotoDePerfil);
+            		if(fotoDePerfil != null) {
+            			servicioLogin.actualizarFotoDeUsuarioConectado(request, fotoDePerfil);
+            			ModelMap modelo = new ModelMap();
+            			modelo.put("msj","imagen cargada correctamente");
+            			return new ModelAndView("perfil/cargar-foto",modelo);            			
+            		}                	
                 }        	
             }           	
         }            
