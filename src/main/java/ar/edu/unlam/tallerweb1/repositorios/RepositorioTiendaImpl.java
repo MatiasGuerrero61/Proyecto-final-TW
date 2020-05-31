@@ -61,7 +61,7 @@ public class RepositorioTiendaImpl implements RepositorioTienda{
 			criteria.add(Restrictions.like("nombre",filtroNombre+"%"));
 		}if(filtroImporteMax != null) {
 			BigDecimal max = new BigDecimal(filtroImporteMax);
-			criteria.add(Restrictions.ge("importe", max));
+			criteria.add(Restrictions.le("importe", max));
 		}if(filtroImporteMin != null) {
 			BigDecimal min = new BigDecimal(filtroImporteMin);
 			criteria.add(Restrictions.ge("importe", min));
