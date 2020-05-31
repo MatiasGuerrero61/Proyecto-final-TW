@@ -40,4 +40,22 @@ public class RepositorioAnuncioImpl implements RepositorioAnuncio{
 		return anuncios;
 	}
 
+	@Override
+	public void deleteAnuncio(Anuncio anuncio) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteAnuncioPorId(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateAnuncio(Anuncio anuncio) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

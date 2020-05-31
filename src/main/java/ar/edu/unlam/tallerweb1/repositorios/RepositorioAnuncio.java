@@ -9,4 +9,7 @@ public interface RepositorioAnuncio {
 	void guardar(Anuncio anuncio);
 	Anuncio obtenerAnuncioPorId(long id);
 	List<Anuncio> obtenerAnuncios();
+	void deleteAnuncio(Anuncio anuncio);
+	void deleteAnuncioPorId(long id);
+	void updateAnuncio(Anuncio anuncio);
 }

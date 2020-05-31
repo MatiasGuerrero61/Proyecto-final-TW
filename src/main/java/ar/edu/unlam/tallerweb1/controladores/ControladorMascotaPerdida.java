@@ -15,18 +15,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unlam.tallerweb1.modelo.PostMascotaPerdida;
+import ar.edu.unlam.tallerweb1.modelo.Anuncio;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.servicios.ServicioPost;
+import ar.edu.unlam.tallerweb1.servicios.ServicioAnuncio;
 
 @Controller
 @RequestMapping("/mascota-perdida")
 public class ControladorMascotaPerdida{
-	private ServicioPost servicioPost;
+	
+	private ServicioAnuncio servicioAnuncio;
 	
 	@Autowired
-	public ControladorMascotaPerdida(ServicioPost servicioPost){
-		this.servicioPost = servicioPost;
+	public ControladorMascotaPerdida(ServicioAnuncio servicioAnuncio){
+		this.servicioAnuncio = servicioAnuncio;
 	}
 	
 	@RequestMapping(path = "/postear-perdida", method = RequestMethod.GET)
@@ -35,14 +36,14 @@ public class ControladorMascotaPerdida{
 	}
 	
 	@ModelAttribute("guardarPost") 
-	public PostMascotaPerdida getPostMascotaPerdida(){ 
-	    return new PostMascotaPerdida();
+	public Anuncio getAnuncio(){ 
+	    return new Anuncio();
 	}
 	
 	@RequestMapping(path = "/guardar-post", method = RequestMethod.POST)
-	public ModelAndView guardarPost(@ModelAttribute("guardarPost") PostMascotaPerdida post,BindingResult result, HttpServletRequest request) {
+	public ModelAndView guardarPost(@ModelAttribute("guardarPost") Anuncio anuncio,BindingResult result, HttpServletRequest request) {
 		
-		servicioPost.guardarPost(post);
+		servicioAnuncio.guardar(anuncio);
 		
 		return new ModelAndView("redirect:/");
 	}
@@ -51,9 +52,9 @@ public class ControladorMascotaPerdida{
 	public ModelAndView irAListaPerdida() {
 		
 		ModelMap model = new ModelMap();
-		List<PostMascotaPerdida> posts = servicioPost.obtenerListaPerdida();
-		if(posts != null) {
-			model.put("posts", posts);
+		List<Anuncio> anuncios = servicioAnuncio.getAnuncios();
+		if(anuncios != null) {
+			model.put("anuncio", anuncios);
 			return new ModelAndView("lista-perdida", model);
 		}
 		else {// si el usuario no existe agrega un mensaje de error en el modelo.

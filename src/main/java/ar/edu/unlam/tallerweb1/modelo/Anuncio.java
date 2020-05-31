@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Anuncio {
@@ -11,26 +12,36 @@ public class Anuncio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String titulo;
-	private String descripcion;
-	
+	@OneToOne
+	private Mascota mascota;
+	private String informacion;
+	@OneToOne
+	private Album album;
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getTitulo() {
-		return titulo;
+	public Mascota getMascota() {
+		return mascota;
 	}
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setMascota(Mascota mascota) {
+		this.mascota = mascota;
 	}
-	public String getDescripcion() {
-		return descripcion;
+	public String getInformacion() {
+		return informacion;
 	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setInformacion(String informacion) {
+		this.informacion = informacion;
 	}
+	public Album getAlbum() {
+		return album;
+	}
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
+	
+	
 	
 }

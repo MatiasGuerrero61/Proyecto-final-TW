@@ -18,6 +18,7 @@ public class Producto {
 	private String nombre;
 	private String categoria;
 	private BigDecimal importe;
+	private int stock;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Tienda tienda;
@@ -52,5 +53,12 @@ public class Producto {
 	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
 	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	
 
 }

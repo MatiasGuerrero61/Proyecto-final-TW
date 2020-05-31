@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,12 @@ public class ServicioTiendaImpl implements ServicioTienda{
 	public List<Producto> listarProductosDeTienda(Tienda tienda) {
 		return servicioTiendaDao.listarProductosDeTienda(tienda);
 	}
+
+	@Override
+	public List<Producto> filtrarProductos(HashMap<String, String> filtros, Tienda tienda) {
+		return servicioTiendaDao.filtrarProductos(filtros, tienda);
+	}
+	
+
 
 }
