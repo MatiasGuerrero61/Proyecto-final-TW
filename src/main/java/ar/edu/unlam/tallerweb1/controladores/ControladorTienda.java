@@ -8,8 +8,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unlam.tallerweb1.modelo.Filtro;
 import ar.edu.unlam.tallerweb1.modelo.Producto;
 import ar.edu.unlam.tallerweb1.modelo.Tienda;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
@@ -44,17 +46,31 @@ public class ControladorTienda {
 	}
 	
 	@RequestMapping(path = "/ver/{id}", method = RequestMethod.GET)
-    public ModelAndView irTiendao(@PathVariable("id") String id) {
-
+    public ModelAndView irTiendao(@PathVariable("id") String id,
+    		@RequestParam(value="buscador", required=false) String buscador,
+    		@RequestParam(value="categoria", required=false) String categoria, 
+    		@RequestParam(value="min", required=false) String min, 
+    		@RequestParam(value="max", required=false) String max,
+    		@RequestParam(value="orden", required=false) String orden) {
+		
+		
+		System.out.println("orden: " + orden);
         ModelMap modelo = new ModelMap();
 
         try {
             Tienda tienda = servicioTienda.buscarTiendaPorId(Long.parseLong(id));
             if (tienda != null) {
             	modelo.put("tienda", tienda.getRazonSocial());
-            	List<Producto> productos = servicioTienda.listarProductosDeTienda(tienda);
+            	Filtro filtros = new Filtro();
+            	if(buscador != null) {filtros.setNombre(buscador);}
+            	if(categoria != null) {filtros.setCategoria(categoria);}
+            	if(min != null) {filtros.setPrecioMin(min);}
+            	if(max != null) {filtros.setPrecioMax(max);}
+            	if(orden != null) {filtros.setOrder(orden);}
+            	List<Producto> productos = servicioTienda.filtrarProductos(filtros, tienda);
             	if(!productos.isEmpty()) {
             		 modelo.put("productos", productos);
+            		 modelo.put("filtros", filtros);
             	}
             	else {
             		modelo.put("msj", "No hay productos disponibles");
@@ -63,7 +79,7 @@ public class ControladorTienda {
                 modelo.put("msj", "Tienda no encontrada");
             }
         } catch (Exception e) {
-            modelo.put("msj", "Error en la solicitud");
+            modelo.put("msj", e.getClass());
         } 
         
         return new ModelAndView("tienda/tienda", modelo);

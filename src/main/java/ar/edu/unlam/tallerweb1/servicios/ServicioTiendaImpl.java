@@ -1,12 +1,12 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unlam.tallerweb1.modelo.Filtro;
 import ar.edu.unlam.tallerweb1.modelo.Producto;
 import ar.edu.unlam.tallerweb1.modelo.Tienda;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioTienda;
@@ -38,7 +38,7 @@ public class ServicioTiendaImpl implements ServicioTienda{
 	}
 
 	@Override
-	public List<Producto> filtrarProductos(HashMap<String, String> filtros, Tienda tienda) {
+	public List<Producto> filtrarProductos(Filtro filtros, Tienda tienda) {
 		return servicioTiendaDao.filtrarProductos(filtros, tienda);
 	}
 	

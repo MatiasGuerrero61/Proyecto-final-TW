@@ -296,5 +296,8 @@ public class TestTienda extends SpringTest {
 		}
 		
 		assertThat(productosFiltrados).hasSize(2);
+		
+		System.out.println(null == "asc");
+		
 	}
 }

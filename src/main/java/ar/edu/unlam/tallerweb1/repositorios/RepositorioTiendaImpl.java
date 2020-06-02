@@ -13,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.unlam.tallerweb1.modelo.Filtro;
 import ar.edu.unlam.tallerweb1.modelo.Producto;
 import ar.edu.unlam.tallerweb1.modelo.Tienda;
 
@@ -48,31 +49,42 @@ public class RepositorioTiendaImpl implements RepositorioTienda{
 	}
 
 	@Override
-	public List<Producto> filtrarProductos(HashMap<String, String> filtros, Tienda tienda) {
+	public List<Producto> filtrarProductos(Filtro filtros, Tienda tienda) {
 		final Session ssion = sessionFactory.getCurrentSession();
 		Criteria criteria = ssion.createCriteria(Producto.class).add(Restrictions.eq("tienda",tienda));
 		
-		String filtroNombre = filtros.get("nombre");
-		String filtroImporteMin = filtros.get("importeMin");
-		String filtroImporteMax = filtros.get("importeMax");
-		String filtroOrden = filtros.get("orden");
+		String filtroNombre = filtros.getNombre();
+		String filtroImporteMin = filtros.getPrecioMin();
+		String filtroImporteMax = filtros.getPrecioMax();
+		String filtroOrden = filtros.getOrder();
+		String filtroCategoria = filtros.getCategoria();
 		
 		if(filtroNombre != null) {
-			criteria.add(Restrictions.like("nombre",filtroNombre+"%"));
+			criteria.add(Restrictions.like("nombre","%"+filtroNombre+"%"));
+		}if(filtroCategoria != null && !filtroCategoria.equals("todas")) {
+			criteria.add(Restrictions.like("categoria", filtroCategoria));
 		}if(filtroImporteMax != null) {
 			BigDecimal max = new BigDecimal(filtroImporteMax);
 			criteria.add(Restrictions.le("importe", max));
 		}if(filtroImporteMin != null) {
 			BigDecimal min = new BigDecimal(filtroImporteMin);
 			criteria.add(Restrictions.ge("importe", min));
-		}if(filtroOrden == "asc") {
+		}if(filtroOrden != null && filtroOrden.equals("asc")) {
 			criteria.addOrder(Order.asc("importe"));
-		}else if(filtroOrden == "desc") {
+		}else if(filtroOrden != null && filtroOrden.equals("desc")) {
 			criteria.addOrder(Order.desc("importe"));
 		}
 		List<Producto> productosFiltrados = criteria.list();
 		
 		return productosFiltrados;
+	}
+
+	@Override
+	public List<String> listarCategorias(Tienda tienda) {
+		final Session ssion = sessionFactory.getCurrentSession();
+		Criteria criteria = ssion.createCriteria(Producto.class).add(Restrictions.eq("tienda",tienda));
+		
+		return null;
 	}
 	
 	

@@ -10,6 +10,33 @@
     <h4><span class="alert alert-danger">${msj}</span></h4>
     <br>
 </c:if>
+<div id="filtro">
+	
+	<form:form action="" method="GET">
+		<label>Buscar: 
+			<input type="search" name="buscador" value="${filtros.getNombre()}">
+		</label>
+		<label>
+			<select name="categoria">Categorias:
+				<option value="todas">Todas las categorias</option>
+				<option value="alimento">Alimentos</option>
+				<option value="juguete">Juguetes</option>
+				<option value="medicina">Medicina</option>
+			</select>
+		</label>
+		<label>Precio minimo:
+			<input type="number" name="min" value="${filtros.getPrecioMin() }">
+		</label>
+		<label>Precio maximo:
+			<input type="number" name="max" value="${filtros.getPrecioMax() }">
+		</label>
+		<label>Ordenar
+			<input type="radio" name="orden" value="asc" checked>Ascendente
+			<input type="radio" name="orden" value="desc">Descendente
+		</label>
+		<button type="submit">Filtrar</button>
+	</form:form>
+</div>
 <div class="card-group ml-1">
 <c:if test="${not empty productos}">
     <c:forEach var="producto" items="${productos}">
