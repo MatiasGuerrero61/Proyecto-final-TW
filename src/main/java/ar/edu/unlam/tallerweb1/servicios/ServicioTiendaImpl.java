@@ -41,6 +41,11 @@ public class ServicioTiendaImpl implements ServicioTienda{
 	public List<Producto> filtrarProductos(Filtro filtros, Tienda tienda) {
 		return servicioTiendaDao.filtrarProductos(filtros, tienda);
 	}
+
+	@Override
+	public Producto obtenerProducto(long id) {
+		return servicioTiendaDao.obtenerProducto(id);
+	}
 	
 
 

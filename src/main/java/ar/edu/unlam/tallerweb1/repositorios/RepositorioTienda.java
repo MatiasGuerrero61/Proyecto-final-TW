@@ -13,4 +13,5 @@ public interface RepositorioTienda {
 	Tienda buscarTiendaPorId(Long id);
 	List<Producto> filtrarProductos(Filtro filtros, Tienda tienda);
 	List<String> listarCategorias(Tienda tienda);
+	Producto obtenerProducto(long id);
 }

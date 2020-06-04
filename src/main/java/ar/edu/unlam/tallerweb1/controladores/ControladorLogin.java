@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioCarrito;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +22,12 @@ public class ControladorLogin {
 	// dicha clase debe estar anotada como @Service o @Repository y debe estar en un paquete de los indicados en
 	// applicationContext.xml
 	private ServicioLogin servicioLogin;
+	private ServicioCarrito servicioCarrito;
 
 	@Autowired
-	public ControladorLogin(ServicioLogin servicioLogin){
+	public ControladorLogin(ServicioLogin servicioLogin, ServicioCarrito servicioCarrito){
 		this.servicioLogin = servicioLogin;
+		this.servicioCarrito = servicioCarrito;
 	}
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
@@ -71,6 +74,7 @@ public class ControladorLogin {
 	@RequestMapping(path = "/logout", method = RequestMethod.GET)
 	public ModelAndView irALogout(HttpServletRequest request) {
 		servicioLogin.cerrarSesion(request);
+		servicioCarrito.destruirCarrito();
 		return new ModelAndView("redirect:/login");
 	}
 	

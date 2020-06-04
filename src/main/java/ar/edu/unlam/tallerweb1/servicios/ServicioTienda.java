@@ -11,4 +11,5 @@ public interface ServicioTienda {
 	Tienda buscarTiendaPorId(Long id);
 	List<Producto> listarProductosDeTienda(Tienda tienda);
 	List<Producto> filtrarProductos(Filtro filtros, Tienda tienda);
+	Producto obtenerProducto(long id);
 }
