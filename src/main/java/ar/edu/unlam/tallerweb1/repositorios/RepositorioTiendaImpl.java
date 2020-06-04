@@ -86,6 +86,12 @@ public class RepositorioTiendaImpl implements RepositorioTienda{
 		
 		return null;
 	}
+
+	@Override
+	public Producto obtenerProducto(long id) {
+		final Session session = sessionFactory.getCurrentSession();
+		return session.get(Producto.class, id);
+	}
 	
 	
 }
