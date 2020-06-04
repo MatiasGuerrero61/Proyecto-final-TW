@@ -6,10 +6,7 @@
 </c:if>  
 </div>
 
-<c:if test="${not empty msj}">
-    <h4><span class="alert alert-danger">${msj}</span></h4>
-    <br>
-</c:if>
+
 <div id="filtro">
 	
 	<form:form action="" method="GET">
@@ -19,7 +16,7 @@
 		<label>
 			<select name="categoria">Categorias:
 				<option value="todas">Todas las categorias</option>
-				<option value="alimento">Alimentos</option>
+				<option value="alimento" >Alimentos</option>
 				<option value="juguete">Juguetes</option>
 				<option value="medicina">Medicina</option>
 			</select>
@@ -38,6 +35,10 @@
 	</form:form>
 </div>
 <div class="card-group ml-1">
+<c:if test="${not empty msj}">
+    <h4><span class="alert alert-danger">${msj}</span></h4>
+    <br>
+</c:if>
 <c:if test="${not empty productos}">
     <c:forEach var="producto" items="${productos}">
 

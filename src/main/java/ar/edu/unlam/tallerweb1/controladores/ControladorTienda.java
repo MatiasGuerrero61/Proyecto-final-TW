@@ -74,6 +74,7 @@ public class ControladorTienda {
             	}
             	else {
             		modelo.put("msj", "No hay productos disponibles");
+            		modelo.put("filtros", filtros);
             	}
             } else {
                 modelo.put("msj", "Tienda no encontrada");

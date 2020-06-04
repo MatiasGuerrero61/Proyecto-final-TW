@@ -20,7 +20,7 @@ public class Filtro {
 	}
 	public void setPrecioMax(String precioMax) {
 		if(precioMax != "") {
-			this.precioMin = precioMax;
+			this.precioMax = precioMax;
 		}
 		else {
 			this.precioMax = "9999";
