@@ -24,6 +24,7 @@
 
 			<ul class="navbar-nav mr-auto">
 			  <li class="nav-item mr-auto"><a class="nav-link" href="#"></a></li>
+			  <li class="nav-item mr-auto"><a class="nav-link" href=" <c:url value='/home/index'/> ">Home</a></li>
 			  <li class="nav-item mr-auto"><a class="nav-link" href=" <c:url value='/tienda/todas'/> ">Tiendas</a></li>
 			   <li class="nav-item mr-auto"><a class="nav-link" href=" <c:url value='/perfil/cargar-foto'/> ">Actualizar foto de perfil</a></li>
 			</ul>

@@ -12,11 +12,12 @@ public class Anuncio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	private String titulo;
 	@OneToOne
 	private Mascota mascota;
 	private String informacion;
 	@OneToOne
-	private Album album;
+	private Imagen fotoDeAnuncio;
 	public long getId() {
 		return id;
 	}
@@ -35,12 +36,19 @@ public class Anuncio {
 	public void setInformacion(String informacion) {
 		this.informacion = informacion;
 	}
-	public Album getAlbum() {
-		return album;
+	public String getTitulo() {
+		return titulo;
 	}
-	public void setAlbum(Album album) {
-		this.album = album;
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
+	public Imagen getFotoDeAnuncio() {
+		return fotoDeAnuncio;
+	}
+	public void setFotoDeAnuncio(Imagen fotoDeAnuncio) {
+		this.fotoDeAnuncio = fotoDeAnuncio;
+	}
+	
 	
 	
 	

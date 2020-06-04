@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.unlam.tallerweb1.modelo.Mascota;
 
-@Repository
 public interface RepositorioMascota  {
-	List<Mascota> getMacota();
+	List<Mascota> getMascotas();
+	Mascota getMascotaById(Long id);
 	void saveMascota(Mascota mascota);
 	void updateMascota(Mascota mascota);
 	void deleteMascota(Mascota mascota);
