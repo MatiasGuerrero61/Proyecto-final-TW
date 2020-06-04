@@ -2,6 +2,8 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Filtro;
+import ar.edu.unlam.tallerweb1.modelo.Item;
 import ar.edu.unlam.tallerweb1.modelo.Producto;
 import ar.edu.unlam.tallerweb1.modelo.Tienda;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioCarrito;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioTienda;
 
@@ -23,11 +28,15 @@ public class ControladorTienda {
 	
 	private ServicioLogin servicioLogin;
 	private ServicioTienda servicioTienda;	
+	private ServicioCarrito servicioCarrito;
 	
 	@Autowired
-	public ControladorTienda(ServicioLogin servicioLogin, ServicioTienda servicioTienda){
+	public ControladorTienda(ServicioLogin servicioLogin, 
+							ServicioTienda servicioTienda, 
+							ServicioCarrito servicioCarrito ){
 		this.servicioLogin = servicioLogin;
 		this.servicioTienda = servicioTienda;
+		this.servicioCarrito = servicioCarrito;
 	}
 	
 	 
@@ -51,16 +60,32 @@ public class ControladorTienda {
     		@RequestParam(value="categoria", required=false) String categoria, 
     		@RequestParam(value="min", required=false) String min, 
     		@RequestParam(value="max", required=false) String max,
-    		@RequestParam(value="orden", required=false) String orden) {
+    		@RequestParam(value="orden", required=false) String orden,
+    		HttpServletRequest request) {
 		
 		
 		System.out.println("orden: " + orden);
         ModelMap modelo = new ModelMap();
 
         try {
-            Tienda tienda = servicioTienda.buscarTiendaPorId(Long.parseLong(id));
+        	Long idTienda = Long.parseLong(id);
+            Tienda tienda = servicioTienda.buscarTiendaPorId(idTienda);
             if (tienda != null) {
-            	modelo.put("tienda", tienda.getRazonSocial());
+            	modelo.put("tienda", tienda);
+            	
+            	Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
+                if (usuario != null) {
+                	if(servicioCarrito.tengoCarritoActivo(usuario)) {
+                		if(servicioCarrito.obtenerIdDeTienda() != idTienda) {
+                			servicioCarrito.destruirCarrito();
+                		}
+                		if(servicioCarrito.tengoItems()) {
+                			List<Item> items = servicioCarrito.listarItems();
+                			modelo.put("itemsCarrito", items);
+                		}                		
+                	}
+                }
+                
             	Filtro filtros = new Filtro();
             	if(buscador != null) {filtros.setNombre(buscador);}
             	if(categoria != null) {filtros.setCategoria(categoria);}
@@ -86,4 +111,28 @@ public class ControladorTienda {
         return new ModelAndView("tienda/tienda", modelo);
     }
 
+	@RequestMapping(value = "/cargar-carrito", method = RequestMethod.POST)
+	 public ModelAndView cargarCarrito(@RequestParam("idTienda") Long idTienda,
+			 						@RequestParam("idProducto") Long idProducto,
+			 						@RequestParam("cantidad") Integer cantidad,
+			 						HttpServletRequest request) {
+		
+		Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
+        if (usuario != null) {
+        	if(!servicioCarrito.tengoCarritoActivo(usuario)) {
+        		servicioCarrito.generarCarritoVacio(usuario);
+        	}
+        	Producto producto = servicioTienda.obtenerProducto(idProducto);
+        	System.out.println("producto para el carrito:");
+    		System.out.println(producto);
+        	servicioCarrito.cargarItem(producto, cantidad);
+        		List<Item> items = servicioCarrito.listarItems();
+        		System.out.println("items en carrito:");
+        		System.out.println(items);
+        }
+        else {
+        	return new ModelAndView("redirect:../login");
+        }
+		return new ModelAndView("redirect:ver/"+idTienda);
+	}
 }
