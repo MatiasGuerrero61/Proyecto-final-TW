@@ -52,7 +52,8 @@
 				<form action="<c:url value='/tienda/cargar-carrito'/>" method="POST">	
 					<input name="idTienda" value="${tienda.getId()}" type="hidden"/>
 					<input name="idProducto" value="${producto.getId()}" type="hidden"/>
-					<input type="number" name="cantidad" class="form-control" required>
+					<label for="cantidad">Cantidad:</label>
+					<input type="number" min="1" value="1" name="cantidad" class="form-control" required>
 				   <button type="submit" class="btn btn-lg btn-success">Agregar al carrito</button>
 			   </form>
 			</div>
@@ -87,6 +88,13 @@
             <td>${item.getCantidad()}</td>
             <td>$ ${item.getProducto().getImporte()}</td>
             <td>$ ${item.getProducto().getImporte() * item.getCantidad()}</td>
+            <td>
+            <form action="<c:url value='/tienda/eliminar-producto-de-carrito'/>" method="POST">	
+			<input name="idTienda" value="${tienda.getId()}" type="hidden"/>
+			<input name="idProducto" value="${item.getProducto().getId()}" type="hidden"/>
+			<button type="submit" class="btn btn-lg btn-danger">Quitar</button>
+		</form>
+            </td>
         </tr>
     </c:forEach>
 
@@ -94,6 +102,10 @@
     </table>
     <p>
     	<span class="badge badge-info">IMPORTE TOTAL EN CARRITO: </span> $ ${precioTotalCarrito}
+    	<form action="<c:url value='/tienda/destruir-carrito'/>" method="POST">	
+			<input name="idTienda" value="${tienda.getId()}" type="hidden"/>
+			<button type="submit" class="btn btn-lg btn-danger">Descartar carrito</button>
+		</form>
 	</p>
 </c:if>
 </div>

@@ -55,7 +55,7 @@ public class ControladorTienda {
 	}
 	
 	@RequestMapping(path = "/ver/{id}", method = RequestMethod.GET)
-    public ModelAndView irTiendao(@PathVariable("id") String id,
+    public ModelAndView irATienda(@PathVariable("id") String id,
     		@RequestParam(value="buscador", required=false) String buscador,
     		@RequestParam(value="categoria", required=false) String categoria, 
     		@RequestParam(value="min", required=false) String min, 
@@ -135,4 +135,34 @@ public class ControladorTienda {
         }
 		return new ModelAndView("redirect:ver/"+idTienda);
 	}
+	
+	@RequestMapping(value = "/destruir-carrito", method = RequestMethod.POST)
+	 public ModelAndView destruirCarrito(@RequestParam("idTienda") Long idTienda,
+			 						HttpServletRequest request) {
+		
+		Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
+       if (usuario != null) {
+       	servicioCarrito.destruirCarrito();
+       }
+       else {
+       	return new ModelAndView("redirect:../login");
+       }
+		return new ModelAndView("redirect:ver/"+idTienda);
+	}
+	
+	@RequestMapping(value = "/eliminar-producto-de-carrito", method = RequestMethod.POST)
+	 public ModelAndView eliminarProductoDeCarrito(@RequestParam("idTienda") Long idTienda,
+			 						@RequestParam("idProducto") Long idProducto,
+			 						HttpServletRequest request) {
+		
+		Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
+      if (usuario != null) {
+      	servicioCarrito.eliminarProductoDeCarrito(idProducto);
+      }
+      else {
+      	return new ModelAndView("redirect:../login");
+      }
+		return new ModelAndView("redirect:ver/"+idTienda);
+	}
+	
 }
