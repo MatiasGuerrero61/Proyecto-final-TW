@@ -13,7 +13,9 @@
 				</div>
 				
 			</c:forEach>
-			
+			<c:if test="${not empty error}">
+				<h4>${error}</h4>
+			</c:if>
 			<br>
 		   
 <%@include file="../shared/footer.jsp" %>

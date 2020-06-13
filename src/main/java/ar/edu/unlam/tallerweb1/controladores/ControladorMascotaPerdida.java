@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import ar.edu.unlam.tallerweb1.servicios.ServicioMascotaPerdida;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,18 +26,16 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioMascota;
 @RequestMapping("/mascotas-perdidas")
 public class ControladorMascotaPerdida{
 	
-	private ServicioAnuncio servicioAnuncio;
-	private ServicioMascota servicioMascota;
+	private ServicioMascotaPerdida servicioMascotaPerdida;
 	
 	@Autowired
-	public ControladorMascotaPerdida(ServicioAnuncio servicioAnuncio, ServicioMascota servicioMascota){
-		this.servicioAnuncio = servicioAnuncio;
-		this.servicioMascota = servicioMascota;
+	public ControladorMascotaPerdida(ServicioMascotaPerdida servicioMascotaPerdida){
+		this.servicioMascotaPerdida = servicioMascotaPerdida;
 	}
 	
 	@RequestMapping(path = "/postear-perdida", method = RequestMethod.GET)
-	public ModelAndView irAPostearPerdida() {
-		List<Mascota> misMascotas = this.servicioMascota.getListaMascota();
+	public ModelAndView irAPostearPerdida(HttpServletRequest request) {
+		List<Mascota> misMascotas = this.servicioMascotaPerdida.getMascotaDeUsuario(request);
 		ModelMap model = new ModelMap();
 		model.put("mascotas",misMascotas);
 		
@@ -52,9 +51,9 @@ public class ControladorMascotaPerdida{
 	public ModelAndView guardarPost(@ModelAttribute("guardarAnuncio") Anuncio anuncio,BindingResult result, HttpServletRequest request,
 				@RequestParam("mascotaId") Long id
 			) {
-		Mascota mascota = this.servicioMascota.getMascotaById(id);
+		Mascota mascota = this.servicioMascotaPerdida.getMascotaById(id);
 		anuncio.setMascota(mascota);
-		servicioAnuncio.guardar(anuncio);
+		servicioMascotaPerdida.guardarAnuncio(anuncio);
 		
 		return new ModelAndView("redirect:/home/index");
 	}
@@ -62,15 +61,8 @@ public class ControladorMascotaPerdida{
 	@RequestMapping("/lista-perdida")
 	public ModelAndView irAListaPerdida() {
 		
-		ModelMap model = new ModelMap();
-		List<Anuncio> anuncios = servicioAnuncio.getAnuncios();
-		if(anuncios != null) {
-			model.put("anuncios", anuncios);
-			return new ModelAndView("mascotas-perdidas/lista-perdida", model);
-		}
-		else {// si el usuario no existe agrega un mensaje de error en el modelo.
-			model.put("error", "No hay ningun posteo");
-	}
+		ModelMap model = servicioMascotaPerdida.getListaAnuncio();
+
 	return new ModelAndView("mascotas-perdidas/lista-perdida", model);
 		
 	}

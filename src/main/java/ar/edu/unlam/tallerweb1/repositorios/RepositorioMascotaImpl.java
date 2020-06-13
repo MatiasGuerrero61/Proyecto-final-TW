@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import java.util.List;
 
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -42,6 +43,13 @@ public class RepositorioMascotaImpl implements RepositorioMascota {
 	public List<Mascota> getMascotas() {
 		final Session session = sessionFactory.getCurrentSession();
 		List<Mascota> mascotas = session.createCriteria(Mascota.class).list();
+		return mascotas;
+	}
+
+	@Override
+	public List<Mascota> getMascotasDeUsuario(Usuario usuario) {
+    	final Session session = sessionFactory.getCurrentSession();
+    	List<Mascota> mascotas = session.createCriteria(Mascota.class).add(Restrictions.eq("duenio", usuario)).list();
 		return mascotas;
 	}
 
