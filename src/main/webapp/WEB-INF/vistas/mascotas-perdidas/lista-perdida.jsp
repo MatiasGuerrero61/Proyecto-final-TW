@@ -6,6 +6,8 @@
 			<c:forEach items="${anuncios}" var="anuncio">
 				<div class="card">
 					<h4><span>Titulo: ${anuncio.getTitulo()}</span></h4>
+					<h4><span>Propietario: ${anuncio.getMascota().getDuenio().getNombre()}</span></h4>
+					<h4><span>Email: ${anuncio.getMascota().getDuenio().getEmail()}</span></h4>
 					<h4><span>Informacion: ${anuncio.getInformacion()}</span></h4>
 					<h4><span>Mascota: ${anuncio.getMascota().getNombre()}</span></h4>
 					<h4><span>Caracteristicas: ${anuncio.getMascota().getCaracteristica()}</span></h4>

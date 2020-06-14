@@ -19,11 +19,11 @@
 			</div>
 			
 			<div>
-				<label for="masInformacion">Mas informacion: </label>
+				<label for="Informacion">Mas informacion: </label>
 				<form:textarea path="informacion" id="informacion" rows="5" cols="50" class="form-control"/>
 			</div>
 			<div style="float:right">
-				<a href="./"><button class="btn btn-lg btn-secondary" >Vovler</button></a>
+				<a href=" <c:url value='/home/index'/> "><button class="btn btn-lg btn-secondary" >Vovler</button></a>
 				<button class="btn btn-lg btn-danger" Type="submit"/>Postear</button>
 			</div>
 			

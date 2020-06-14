@@ -70,6 +70,10 @@ public class ControladorTienda {
         try {
         	Long idTienda = Long.parseLong(id);
             Tienda tienda = servicioTienda.buscarTiendaPorId(idTienda);
+
+			List<Producto> categorias = servicioTienda.listarCategorias(tienda);
+			modelo.put("categorias", categorias);
+
             if (tienda != null) {
             	modelo.put("tienda", tienda);
             	

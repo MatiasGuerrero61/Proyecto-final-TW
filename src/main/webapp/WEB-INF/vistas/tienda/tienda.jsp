@@ -16,9 +16,9 @@
 		<label>
 			<select name="categoria">Categorias:
 				<option value="todas">Todas las categorias</option>
-				<option value="alimento" >Alimentos</option>
-				<option value="juguete">Juguetes</option>
-				<option value="medicina">Medicina</option>
+				<c:forEach var="categoria" items="${categorias}">
+					<option value="${categoria}">${categoria}</option>
+				</c:forEach>
 			</select>
 		</label>
 		<label>Precio minimo:

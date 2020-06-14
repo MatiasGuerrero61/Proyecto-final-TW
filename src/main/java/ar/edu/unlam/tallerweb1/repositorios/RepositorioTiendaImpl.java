@@ -7,9 +7,8 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
+import org.hibernate.transform.DistinctRootEntityResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -80,11 +79,15 @@ public class RepositorioTiendaImpl implements RepositorioTienda{
 	}
 
 	@Override
-	public List<String> listarCategorias(Tienda tienda) {
+	public List<Producto> listarCategorias(Tienda tienda) {
 		final Session ssion = sessionFactory.getCurrentSession();
 		Criteria criteria = ssion.createCriteria(Producto.class).add(Restrictions.eq("tienda",tienda));
-		
-		return null;
+		ProjectionList projList = Projections.projectionList();
+		projList.add(Projections.distinct(Projections.property("categoria")));
+		criteria.setProjection(projList);
+		List<Producto> productos = criteria.list();
+
+		return productos;
 	}
 
 	@Override

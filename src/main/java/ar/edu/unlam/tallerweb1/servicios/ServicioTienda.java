@@ -12,4 +12,5 @@ public interface ServicioTienda {
 	List<Producto> listarProductosDeTienda(Tienda tienda);
 	List<Producto> filtrarProductos(Filtro filtros, Tienda tienda);
 	Producto obtenerProducto(long id);
+	List<Producto> listarCategorias(Tienda tienda);
 }
