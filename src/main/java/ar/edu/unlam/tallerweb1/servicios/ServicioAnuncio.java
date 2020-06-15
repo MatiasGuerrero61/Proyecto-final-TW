@@ -1,11 +1,12 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import java.util.List;
-
 import ar.edu.unlam.tallerweb1.modelo.Anuncio;
 
+import java.util.List;
+
 public interface ServicioAnuncio {
-	
-	void guardar(Anuncio anuncio);
-	List<Anuncio> getAnuncios();
+
+    void guardar(Anuncio anuncio);
+
+    List<Anuncio> getAnuncios();
 }

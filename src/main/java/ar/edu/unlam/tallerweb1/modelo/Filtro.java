@@ -1,55 +1,61 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import java.math.BigDecimal;
-
 public class Filtro {
 
-	private String nombre;
-	private String precioMax;
-	private String precioMin;
-	private String categoria;
-	private String order;
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getPrecioMax() {
-		return precioMax;
-	}
-	public void setPrecioMax(String precioMax) {
-		if(precioMax != "") {
-			this.precioMax = precioMax;
-		}
-		else {
-			this.precioMax = "9999";
-		}
-	}
-	public String getPrecioMin() {
-		return precioMin;
-	}
-	public void setPrecioMin(String precioMin) {
-		if(precioMin != "") {
-			this.precioMin = precioMin;
-		}
-		else {
-			this.precioMin = "0";
-		}
-		
-	}
-	public String getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
-	public String getOrder() {
-		return order;
-	}
-	public void setOrder(String order) {
-		this.order = order;
-	}
-	
-	
+    private String descripcion;
+    private Integer precioMax;
+    private Integer precioMin;
+    private Integer idCategoria;
+    private String order;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Integer getPrecioMax() {
+        return precioMax;
+    }
+
+    public void setPrecioMax(Integer precioMax) {
+        if (precioMax != null) {
+            this.precioMax = precioMax;
+        } else {
+            this.precioMax = 9999;
+        }
+    }
+
+    public Integer getPrecioMin() {
+        return precioMin;
+    }
+
+    public void setPrecioMin(Integer precioMin) {
+        if (precioMin != null) {
+            this.precioMin = precioMin;
+        } else {
+            this.precioMin = 0;
+        }
+
+    }
+
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+
 }

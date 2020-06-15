@@ -28,7 +28,6 @@ public class ServicioAnuncioImpl implements ServicioAnuncio{
 
 	@Override
 	public List<Anuncio> getAnuncios() {
-		List<Anuncio> anuncios = repoAnuncio.obtenerAnuncios();
-		return anuncios;
+		return repoAnuncio.obtenerAnuncios();
 	}
 }
