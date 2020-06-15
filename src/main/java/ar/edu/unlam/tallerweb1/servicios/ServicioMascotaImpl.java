@@ -2,6 +2,8 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import java.util.List;
 
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +16,12 @@ import ar.edu.unlam.tallerweb1.repositorios.RepositorioMascota;
 public class ServicioMascotaImpl implements ServicioMascota{
 	
 	private RepositorioMascota servicioMascotaDao;
+	private RepositorioUsuario servicioUsuarioDao;
 	
 	@Autowired
-	public ServicioMascotaImpl(RepositorioMascota repoMascota) {
+	public ServicioMascotaImpl(RepositorioMascota repoMascota, RepositorioUsuario repositorioUsuario) {
 		this.servicioMascotaDao = repoMascota;
+		this.servicioUsuarioDao = repositorioUsuario;
 	}
 	@Override
 	public List<Mascota> getListaMascota() {
@@ -26,6 +30,15 @@ public class ServicioMascotaImpl implements ServicioMascota{
 	@Override
 	public Mascota getMascotaById(Long id) {
 		return this.servicioMascotaDao.getMascotaById(id);
+	}
+
+	@Override
+	public List<Mascota> getListaMascotaDeUsuario(Usuario usuario){
+			Usuario user = servicioUsuarioDao.consultarUsuarioPorId(usuario.getId());
+			if(user == null){
+				return null;
+			}
+		return servicioMascotaDao.getMascotasDeUsuario(user);
 	}
 
 }
