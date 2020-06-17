@@ -74,7 +74,6 @@ public class ControladorLogin {
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public ModelAndView irALogout(HttpServletRequest request) {
         servicioLogin.cerrarSesion(request);
-        servicioCarrito.destruirCarrito();
         return new ModelAndView("redirect:/login");
     }
 

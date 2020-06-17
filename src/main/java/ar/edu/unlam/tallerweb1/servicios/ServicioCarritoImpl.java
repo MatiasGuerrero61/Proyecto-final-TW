@@ -1,16 +1,13 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ar.edu.unlam.tallerweb1.modelo.Carrito;
 import ar.edu.unlam.tallerweb1.modelo.Item;
 import ar.edu.unlam.tallerweb1.modelo.Producto;
+import ar.edu.unlam.tallerweb1.modelo.Tienda;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioCarrito;
 
@@ -18,82 +15,54 @@ import ar.edu.unlam.tallerweb1.repositorios.RepositorioCarrito;
 @Transactional
 public class ServicioCarritoImpl implements ServicioCarrito{
 	
-	private RepositorioCarrito repositorioCarrito;
-	private Carrito carrito;
-	private HashMap<Long,Item> items;
-
-	@Override
-	public boolean tengoCarritoActivo(Usuario usuario) {
-		if(this.carrito != null) {
-			if(this.carrito.getUsuario().getId() == usuario.getId()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
-	public void generarCarritoVacio(Usuario usuario) {
-		this.carrito = new Carrito();
-		this.items = new HashMap<Long,Item>();
-		this.carrito.setUsuario(usuario);
-	}
-
-	@Override
-	public void cargarItem(Producto producto, Integer cantidad) {
-		Item existente = this.items.get(producto.getId());
-		if(existente != null) {
-			existente.setCantidad(existente.getCantidad()+cantidad);
-			this.items.replace(producto.getId(), existente);
-		}
-		else {
-			//El precio de compra no lo seteo acá por si hay un aumento de precio desde el momento que lo agrega
-			//al carrito, hasta que hace la compra efectiva.
-			Item itemNuevo = new Item();
-			itemNuevo.setCantidad(cantidad);
-			itemNuevo.setCarrito(this.carrito);
-			itemNuevo.setProducto(producto);
-			this.items.put(producto.getId(), itemNuevo);			
-		}						
-	}
+	private ServicioItem servicioItem;
+	private RepositorioCarrito servicioCarritoDao;
+	
+	@Autowired
+    public ServicioCarritoImpl(ServicioTienda servicioTienda,
+    							ServicioItem servicioItem,
+    							RepositorioCarrito servicioCarritoDao) {
+        this.servicioItem = servicioItem;
+        this.servicioCarritoDao = servicioCarritoDao;
+    }
 	
 	@Override
-	public void vaciarCarrito() {
-		this.items.clear();
+	public void vaciarCarrito(Long idCarrito) {
+		this.servicioItem.vaciarItems(idCarrito);
 	}
 
 	@Override
-	public List<Item> listarItems() {
-		return new ArrayList<Item>(this.items.values());
+	public void cargarItem(Long idCarrito, Long idProducto, Integer cantidad) {
+		Carrito carrito = this.obtenerCarrito(idCarrito);
+		servicioItem.cargarItem(carrito, idProducto, cantidad);
+		return;
 	}
 
 	@Override
-	public void destruirCarrito() {
-		this.carrito = null;
-		this.items = null;
+	public List<Item> listarItems(Carrito carrito) {
+		return servicioItem.listarItems(carrito);
 	}
 
 	@Override
-	public Long obtenerIdDeTienda() {
-		Item item = this.items.entrySet().iterator().next().getValue();
-		return item.getProducto().getTienda().getId();
+	public void eliminarProductoDeCarrito(Long idCarrito, Long idProducto) {
+		servicioItem.eliminarItem(idCarrito, idProducto);
+		return;
 	}
 
 	@Override
-	public boolean tengoItems() {
-		if(this.items.isEmpty()) {
-			return false;
+	public Carrito sincronizarCarrito(Usuario usuario, Tienda tienda) {
+		Carrito carrito = servicioCarritoDao.buscarCarritoPendiente(usuario, tienda);
+		if(carrito == null) {
+			carrito = servicioCarritoDao.crearCarrito(usuario, tienda);
 		}
-		return true;
+		return carrito;
 	}
 
 	@Override
-	public void eliminarProductoDeCarrito(Long idProducto) {
-		this.items.remove(idProducto);
-		if(this.items.isEmpty()) {
-			this.carrito = null;
-			this.items = null;
-		}
+	public Carrito obtenerCarrito(Long idCarrito) {
+		return this.servicioCarritoDao.obtenerCarrito(idCarrito);
 	}
+	
+	
 
 }

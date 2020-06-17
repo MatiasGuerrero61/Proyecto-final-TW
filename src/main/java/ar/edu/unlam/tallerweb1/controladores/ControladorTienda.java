@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.excepciones.TiendaNotFoundException;
+import ar.edu.unlam.tallerweb1.modelo.Carrito;
 import ar.edu.unlam.tallerweb1.modelo.Categoria;
 import ar.edu.unlam.tallerweb1.modelo.Filtro;
 import ar.edu.unlam.tallerweb1.modelo.Item;
@@ -68,29 +69,16 @@ public class ControladorTienda {
                                   @RequestParam(value = "orden", required = false) String orden,
                                   HttpServletRequest request) {
 
-
-        System.out.println("orden: " + orden);
         ModelMap modelo = new ModelMap();
-
-        Long idTienda = Long.parseLong(id);
-        Tienda tienda = servicioTienda.buscarTiendaPorId(idTienda);
-
-        /*List<Producto> categorias = servicioTienda.listarCategorias(tienda);
-        modelo.put("categorias", categorias);*/
-
+        Tienda tienda = servicioTienda.buscarTiendaPorId(Long.parseLong(id));
         modelo.put("tienda", tienda);
-
         Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
+        
         if (usuario != null) {
-            if (servicioCarrito.tengoCarritoActivo(usuario)) {
-                if (servicioCarrito.obtenerIdDeTienda() != idTienda) {
-                    servicioCarrito.destruirCarrito();
-                }
-                if (servicioCarrito.tengoItems()) {
-                    List<Item> items = servicioCarrito.listarItems();
-                    modelo.put("itemsCarrito", items);
-                }
-            }
+        	Carrito carrito = servicioCarrito.sincronizarCarrito(usuario,tienda);
+        	List<Item> items = servicioCarrito.listarItems(carrito);
+        	modelo.put("idCarrito",carrito.getId());
+            modelo.put("itemsCarrito", items);
         }
 
         Filtro filtro = new Filtro();
@@ -112,53 +100,29 @@ public class ControladorTienda {
 
     @RequestMapping(value = "/cargar-carrito", method = RequestMethod.POST)
     public ModelAndView cargarCarrito(@RequestParam("idTienda") Long idTienda,
+    								  @RequestParam("idCarrito") Long idCarrito,
                                       @RequestParam("idProducto") Long idProducto,
-                                      @RequestParam("cantidad") Integer cantidad,
-                                      HttpServletRequest request) {
-
-        Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
-        if (usuario != null) {
-            if (!servicioCarrito.tengoCarritoActivo(usuario)) {
-                servicioCarrito.generarCarritoVacio(usuario);
-            }
-            Producto producto = servicioTienda.obtenerProducto(idProducto);
-            System.out.println("producto para el carrito:");
-            System.out.println(producto);
-            servicioCarrito.cargarItem(producto, cantidad);
-            List<Item> items = servicioCarrito.listarItems();
-            System.out.println("items en carrito:");
-            System.out.println(items);
-        } else {
-            return new ModelAndView("redirect:../login");
-        }
-        return new ModelAndView("redirect:ver/" + idTienda);
+                                      @RequestParam("cantidad") Integer cantidad) {
+    	
+    	servicioCarrito.cargarItem(idCarrito, idProducto, cantidad);
+        return new ModelAndView("redirect:tiendas/" + idTienda);
     }
 
     @RequestMapping(value = "/destruir-carrito", method = RequestMethod.POST)
     public ModelAndView destruirCarrito(@RequestParam("idTienda") Long idTienda,
-                                        HttpServletRequest request) {
+    									@RequestParam("idCarrito") Long idCarrito) {
 
-        Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
-        if (usuario != null) {
-            servicioCarrito.destruirCarrito();
-        } else {
-            return new ModelAndView("redirect:../login");
-        }
-        return new ModelAndView("redirect:ver/" + idTienda);
+        servicioCarrito.vaciarCarrito(idCarrito);
+        return new ModelAndView("redirect:tiendas/" + idTienda);
     }
 
     @RequestMapping(value = "/eliminar-producto-de-carrito", method = RequestMethod.POST)
     public ModelAndView eliminarProductoDeCarrito(@RequestParam("idTienda") Long idTienda,
-                                                  @RequestParam("idProducto") Long idProducto,
-                                                  HttpServletRequest request) {
+    		 									  @RequestParam("idCarrito") Long idCarrito,
+                                                  @RequestParam("idProducto") Long idProducto) {
 
-        Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
-        if (usuario != null) {
-            servicioCarrito.eliminarProductoDeCarrito(idProducto);
-        } else {
-            return new ModelAndView("redirect:../login");
-        }
-        return new ModelAndView("redirect:ver/" + idTienda);
+        servicioCarrito.eliminarProductoDeCarrito(idCarrito, idProducto);
+        return new ModelAndView("redirect:tiendas/" + idTienda);
     }
 
 }
