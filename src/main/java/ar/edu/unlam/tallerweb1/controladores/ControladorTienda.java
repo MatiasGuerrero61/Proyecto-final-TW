@@ -103,25 +103,10 @@ public class ControladorTienda {
     								  @RequestParam("idCarrito") Long idCarrito,
                                       @RequestParam("idProducto") Long idProducto,
 
-                                      @RequestParam("cantidad") Integer cantidad,
-                                      HttpServletRequest request) {
+                                      @RequestParam("cantidad") Integer cantidad) {
 
-        Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
-        if (usuario != null) {
-            if (!servicioCarrito.tengoCarritoActivo(usuario)) {
-                servicioCarrito.generarCarritoVacio(usuario);
-            }
-            Producto producto = servicioTienda.obtenerProducto(idProducto);
-            System.out.println("producto para el carrito:");
-            System.out.println(producto);
-            servicioCarrito.cargarItem(producto, cantidad);
-            List<Item> items = servicioCarrito.listarItems();
-            System.out.println("items en carrito:");
-            System.out.println(items);
-        } else {
-            return new ModelAndView("redirect:../login");
-        }
-        return new ModelAndView("redirect:tiendas/" + idTienda);
+            servicioCarrito.cargarItem(idCarrito, idProducto, cantidad);
+            return new ModelAndView("redirect:tiendas/" + idTienda);
     }
 
     @RequestMapping(value = "/destruir-carrito", method = RequestMethod.POST)
