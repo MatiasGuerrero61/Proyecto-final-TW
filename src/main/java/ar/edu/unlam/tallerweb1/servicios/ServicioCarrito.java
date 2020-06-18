@@ -2,12 +2,8 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Carrito;
 import ar.edu.unlam.tallerweb1.modelo.Item;
-import ar.edu.unlam.tallerweb1.modelo.Producto;
 import ar.edu.unlam.tallerweb1.modelo.Tienda;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-
-import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 
 public interface ServicioCarrito {

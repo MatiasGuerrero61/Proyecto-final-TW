@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,12 @@ public class ServicioItemImpl implements ServicioItem {
 	@Override
 	public void cargarItem(Carrito carrito, Long idProducto, Integer cantidad) {
 		Producto producto = this.servicioTienda.obtenerProducto(idProducto);
-		servicioItemDao.cargarItem(carrito, producto, cantidad);
-		return;
+		Item item = this.servicioItemDao.buscarItem(carrito, producto);
+		if(item == null) {
+			item = this.servicioItemDao.crearItem(carrito, producto);
+		}
+		item.setCantidad(item.getCantidad() + cantidad);
+		this.servicioItemDao.actualizarItem(item);
 	}
 
 	@Override
@@ -47,6 +52,16 @@ public class ServicioItemImpl implements ServicioItem {
 	public void eliminarItem(Long idCarrito, Long idProducto) {
 		servicioItemDao.eliminarItem(idCarrito, idProducto);
 		return;		
+	}
+
+	@Override
+	public BigDecimal sumarImportesDeItems(Carrito carrito) {
+		List<Item> items = servicioItemDao.listarItems(carrito);
+		BigDecimal importe = new BigDecimal("0");
+		for(Item item: items) {			
+			importe = importe.add(item.getProducto().getImporte().multiply(new BigDecimal(item.getCantidad().toString())));
+		}
+		return importe;
 	}
 
 }

@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Carrito;
-import ar.edu.unlam.tallerweb1.modelo.EnumEstadoDeCompra;
 import ar.edu.unlam.tallerweb1.modelo.Tienda;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 

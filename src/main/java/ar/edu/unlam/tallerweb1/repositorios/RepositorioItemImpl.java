@@ -43,17 +43,11 @@ public class RepositorioItemImpl implements RepositorioItem {
 		session.save(item);
 		return item;
 	}
-
+	
 	@Override
-	public void cargarItem(Carrito carrito, Producto producto, Integer cantidad) {
-		Item item = this.buscarItem(carrito, producto);
-		if(item == null) {
-			item = this.crearItem(carrito, producto);
-		}
-		item.setCantidad(item.getCantidad() + cantidad);
+	public void actualizarItem(Item item) {
 		final Session session = sessionFactory.getCurrentSession();
 		session.update(item);
-		return;
 	}
 
 	@Override

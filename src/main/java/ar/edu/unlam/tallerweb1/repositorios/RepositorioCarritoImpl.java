@@ -49,5 +49,4 @@ public class RepositorioCarritoImpl implements RepositorioCarrito{
 		return session.get(Carrito.class, idCarrito);
 	}
 
-
 }

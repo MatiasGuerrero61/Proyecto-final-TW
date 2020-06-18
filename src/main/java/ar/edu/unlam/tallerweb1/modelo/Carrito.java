@@ -1,7 +1,5 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,10 +24,10 @@ public class Carrito {
 	public Tienda getTienda() {
 		return tienda;
 	}
+	
 	public void setTienda(Tienda tienda) {
 		this.tienda = tienda;
 	}
-	private Date fechaYHoraDeCompra;
 	
 	@Enumerated(EnumType.ORDINAL)
 	private EnumEstadoDeCompra estado;
@@ -51,12 +49,6 @@ public class Carrito {
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-	public Date getFechaYHoraDeCompra() {
-		return fechaYHoraDeCompra;
-	}
-	public void setFechaYHoraDeCompra(Date fechaYHoraDeCompra) {
-		this.fechaYHoraDeCompra = fechaYHoraDeCompra;
 	}
 
 }

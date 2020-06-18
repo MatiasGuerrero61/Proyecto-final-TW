@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ar.edu.unlam.tallerweb1.modelo.Carrito;
 import ar.edu.unlam.tallerweb1.modelo.Item;
-import ar.edu.unlam.tallerweb1.modelo.Producto;
 import ar.edu.unlam.tallerweb1.modelo.Tienda;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioCarrito;
@@ -19,9 +18,8 @@ public class ServicioCarritoImpl implements ServicioCarrito{
 	private RepositorioCarrito servicioCarritoDao;
 	
 	@Autowired
-    public ServicioCarritoImpl(ServicioTienda servicioTienda,
-    							ServicioItem servicioItem,
-    							RepositorioCarrito servicioCarritoDao) {
+    public ServicioCarritoImpl(ServicioItem servicioItem,
+    						   RepositorioCarrito servicioCarritoDao) {
         this.servicioItem = servicioItem;
         this.servicioCarritoDao = servicioCarritoDao;
     }
@@ -33,7 +31,7 @@ public class ServicioCarritoImpl implements ServicioCarrito{
 
 	@Override
 	public void cargarItem(Long idCarrito, Long idProducto, Integer cantidad) {
-		Carrito carrito = this.obtenerCarrito(idCarrito);
+		Carrito carrito = this.servicioCarritoDao.obtenerCarrito(idCarrito);
 		servicioItem.cargarItem(carrito, idProducto, cantidad);
 		return;
 	}
@@ -61,8 +59,6 @@ public class ServicioCarritoImpl implements ServicioCarrito{
 	@Override
 	public Carrito obtenerCarrito(Long idCarrito) {
 		return this.servicioCarritoDao.obtenerCarrito(idCarrito);
-	}
-	
-	
+	}		
 
 }

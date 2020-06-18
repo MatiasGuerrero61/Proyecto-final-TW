@@ -125,6 +125,12 @@
             <button type="submit" class="btn btn-lg btn-danger">Descartar carrito</button>
         </form>
         </p>
+        <p>
+        <form action="<c:url value='/generar-factura'/>" method="POST">
+            <input name="idCarrito" value="${idCarrito}" type="hidden"/>
+            <button type="submit" class="btn btn-lg btn-success">Comprar</button>
+        </form>
+        </p>
     </c:if>
 </div>
 <%@include file="../shared/footer.jsp" %>
