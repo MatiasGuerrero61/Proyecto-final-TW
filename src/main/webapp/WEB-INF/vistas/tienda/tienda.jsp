@@ -63,7 +63,7 @@
                     </div>
                     <div class="card-body">
                         <h1 class="card-title pricing-card-title">$ ${producto.getImporte()}</h1>
-                        <form action="<c:url value='/tienda/cargar-carrito'/>" method="POST">
+                        <form action="<c:url value='/cargar-carrito'/>" method="POST">
                             <input name="idTienda" value="${tienda.getId()}" type="hidden"/>
                             <input name="idProducto" value="${producto.getId()}" type="hidden"/>
                             <label for="cantidad">Cantidad:</label>
