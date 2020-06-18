@@ -110,7 +110,7 @@ public class ControladorTienda {
         return new ModelAndView("tienda/tienda", modelo);
     }
 
-    @RequestMapping(value = "/cargar-carrito", method = RequestMethod.POST)
+    @RequestMapping(value = "cargar-carrito", method = RequestMethod.POST)
     public ModelAndView cargarCarrito(@RequestParam("idTienda") Long idTienda,
                                       @RequestParam("idProducto") Long idProducto,
                                       @RequestParam("cantidad") Integer cantidad,
@@ -131,7 +131,7 @@ public class ControladorTienda {
         } else {
             return new ModelAndView("redirect:../login");
         }
-        return new ModelAndView("redirect:ver/" + idTienda);
+        return new ModelAndView("redirect:tiendas/" + idTienda);
     }
 
     @RequestMapping(value = "/destruir-carrito", method = RequestMethod.POST)
