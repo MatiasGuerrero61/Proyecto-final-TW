@@ -65,6 +65,7 @@
                         <h1 class="card-title pricing-card-title">$ ${producto.getImporte()}</h1>
                         <form action="<c:url value='/cargar-carrito'/>" method="POST">
                             <input name="idTienda" value="${tienda.getId()}" type="hidden"/>
+                            <input name="idCarrito" value="${idCarrito}" type="hidden"/>
                             <input name="idProducto" value="${producto.getId()}" type="hidden"/>
                             <label for="cantidad">Cantidad:</label>
                             <input type="number" min="1" value="1" name="cantidad" class="form-control" required>
@@ -104,8 +105,9 @@
                     <td>$ ${item.getProducto().getImporte()}</td>
                     <td>$ ${item.getProducto().getImporte() * item.getCantidad()}</td>
                     <td>
-                        <form action="<c:url value='/tienda/eliminar-producto-de-carrito'/>" method="POST">
+                        <form action="<c:url value='/eliminar-producto-de-carrito'/>" method="POST">
                             <input name="idTienda" value="${tienda.getId()}" type="hidden"/>
+                            <input name="idCarrito" value="${idCarrito}" type="hidden"/>
                             <input name="idProducto" value="${item.getProducto().getId()}" type="hidden"/>
                             <button type="submit" class="btn btn-lg btn-danger">Quitar</button>
                         </form>
@@ -117,9 +119,16 @@
         </table>
         <p>
             <span class="badge badge-info">IMPORTE TOTAL EN CARRITO: </span> $ ${precioTotalCarrito}
-        <form action="<c:url value='/tienda/destruir-carrito'/>" method="POST">
+        <form action="<c:url value='/destruir-carrito'/>" method="POST">
             <input name="idTienda" value="${tienda.getId()}" type="hidden"/>
+            <input name="idCarrito" value="${idCarrito}" type="hidden"/>
             <button type="submit" class="btn btn-lg btn-danger">Descartar carrito</button>
+        </form>
+        </p>
+        <p>
+        <form action="<c:url value='/generar-factura'/>" method="POST">
+            <input name="idCarrito" value="${idCarrito}" type="hidden"/>
+            <button type="submit" class="btn btn-lg btn-success">Comprar</button>
         </form>
         </p>
     </c:if>
