@@ -98,13 +98,29 @@ public class ControladorTienda {
         return new ModelAndView("tienda/tienda", modelo);
     }
 
-    @RequestMapping(value = "/cargar-carrito", method = RequestMethod.POST)
+    @RequestMapping(value = "cargar-carrito", method = RequestMethod.POST)
     public ModelAndView cargarCarrito(@RequestParam("idTienda") Long idTienda,
     								  @RequestParam("idCarrito") Long idCarrito,
                                       @RequestParam("idProducto") Long idProducto,
-                                      @RequestParam("cantidad") Integer cantidad) {
-    	
-    	servicioCarrito.cargarItem(idCarrito, idProducto, cantidad);
+
+                                      @RequestParam("cantidad") Integer cantidad,
+                                      HttpServletRequest request) {
+
+        Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
+        if (usuario != null) {
+            if (!servicioCarrito.tengoCarritoActivo(usuario)) {
+                servicioCarrito.generarCarritoVacio(usuario);
+            }
+            Producto producto = servicioTienda.obtenerProducto(idProducto);
+            System.out.println("producto para el carrito:");
+            System.out.println(producto);
+            servicioCarrito.cargarItem(producto, cantidad);
+            List<Item> items = servicioCarrito.listarItems();
+            System.out.println("items en carrito:");
+            System.out.println(items);
+        } else {
+            return new ModelAndView("redirect:../login");
+        }
         return new ModelAndView("redirect:tiendas/" + idTienda);
     }
 
