@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import java.util.List;
 
+import ar.edu.unlam.tallerweb1.excepciones.UsuarioNotFoundException;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class ServicioMascotaImpl implements ServicioMascota{
 	public List<Mascota> getListaMascotaDeUsuario(Usuario usuario){
 			Usuario user = servicioUsuarioDao.consultarUsuarioPorId(usuario.getId());
 			if(user == null){
-				return null;
+				throw new UsuarioNotFoundException("El usuario no fue encontrado");
 			}
 		return servicioMascotaDao.getMascotasDeUsuario(user);
 	}
