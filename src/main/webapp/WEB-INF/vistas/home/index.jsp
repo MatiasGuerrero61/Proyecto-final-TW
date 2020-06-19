@@ -20,7 +20,7 @@
                 <p class="card-text">&iexcl;Crea un anuncia de perdida!</p>
             </div>
             <div class="card-body">
-                <a href="/creacion-anuncio">Crear anuncio</a>
+                <a href=" <c:url value='/creacion-anuncio'/> ">Crear anuncio</a>
             </div>
         </div>
 
@@ -30,7 +30,7 @@
                 <p class="card-text">Lista de anuncios de mascotas perdidas</p>
             </div>
             <div class="card-body">
-                <a href="/anuncios">Ver lista</a>
+                <a href=" <c:url value='/anuncios'/> ">Ver lista</a>
             </div>
         </div>
     </div>

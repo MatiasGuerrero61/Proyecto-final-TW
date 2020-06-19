@@ -18,7 +18,6 @@ public class ServicioTiendaImpl implements ServicioTienda {
 
     private RepositorioTienda servicioTiendaDao;
 
-
     @Autowired
     public ServicioTiendaImpl(RepositorioTienda servicioTiendaDao) {
         this.servicioTiendaDao = servicioTiendaDao;

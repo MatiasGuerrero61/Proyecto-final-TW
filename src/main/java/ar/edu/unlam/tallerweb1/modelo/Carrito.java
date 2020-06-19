@@ -1,9 +1,9 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +18,19 @@ public class Carrito {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 	
-	private Date fechaYHoraDeCompra;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Tienda tienda;
+	
+	public Tienda getTienda() {
+		return tienda;
+	}
+	
+	public void setTienda(Tienda tienda) {
+		this.tienda = tienda;
+	}
+	
+	@Enumerated(EnumType.ORDINAL)
+	private EnumEstadoDeCompra estado;
 
 	public Long getId() {
 		return id;
@@ -26,17 +38,17 @@ public class Carrito {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	public EnumEstadoDeCompra getEstado() {
+		return estado;
+	}
+	public void setEstado(EnumEstadoDeCompra estado) {
+		this.estado = estado;
+	}
 	public Usuario getUsuario() {
 		return usuario;
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-	public Date getFechaYHoraDeCompra() {
-		return fechaYHoraDeCompra;
-	}
-	public void setFechaYHoraDeCompra(Date fechaYHoraDeCompra) {
-		this.fechaYHoraDeCompra = fechaYHoraDeCompra;
 	}
 
 }
