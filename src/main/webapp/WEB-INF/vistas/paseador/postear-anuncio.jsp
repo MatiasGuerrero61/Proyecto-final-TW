@@ -22,7 +22,7 @@
 			<h1>Postear Anuncio</h1>
 		</div>
 		<div class = "container">
-			<form:form action="crear-anuncio" method="POST" modelAttribute="crearAnuncio" class="formulario">
+			<form:form action="crear-anuncio" method="POST" modelAttribute="crearAnuncio" enctype="multipart/form-data" class="formulario">
 			<h2>Publicar anuncio paseador:</h2>
 			<p>Complete los siguientes datos:</p>
 			<div>
@@ -33,6 +33,7 @@
 				<label for="descripcion">Descripcion: </label>
 				<form:textarea path="descripcion" id="descripcion" rows="5" cols="50" class="form-control"/>
 			</div>
+
 			<div style="float:right">
 				<a href="../home"><button class="btn btn-lg btn-secondary" >Volver</button></a>
 				<button class="btn btn-lg btn-danger" Type="submit"/>Anunciar</button>

@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import java.util.List;
 
+import com.mercadopago.resources.Preference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,7 +25,7 @@ public class ControladorCompra {
     }
 	
     @RequestMapping(value = "/generar-factura", method = RequestMethod.POST)
-    public ModelAndView generarFactura(@RequestParam("idCarrito") Long idCarrito) {
+    public ModelAndView generarFactura(@RequestParam("idCarrito") Long idCarrito) throws Exception {
     	ModelMap modelo = new ModelMap();
     	Factura factura = this.servicioFactura.generarFactura(idCarrito);
     	modelo.put("factura", factura);
