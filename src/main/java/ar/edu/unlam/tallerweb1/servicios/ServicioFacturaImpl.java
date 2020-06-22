@@ -74,6 +74,21 @@ public class ServicioFacturaImpl implements ServicioFactura {
 	@Override
 	public Factura obtenerFactura(Long idFactura) {
 		return this.servicioFacturaDao.obtenerFactura(idFactura);
+	}
+
+	@Override
+	public String obtenerMailDelComprador(Factura factura) {
+		return factura.getCarrito().getUsuario().getEmail();
+	}
+
+	@Override
+	public String obtenerNombreDeLaTienda(Factura factura) {
+		return factura.getCarrito().getTienda().getRazonSocial();
+	}
+
+	@Override
+	public BigDecimal obtenerImporteFinal(Factura factura) {
+		return factura.getImporteFinal();
 	}	
 
 }

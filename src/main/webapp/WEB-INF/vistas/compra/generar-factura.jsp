@@ -21,7 +21,7 @@
 		<input name="codigo" type="text" class="form-control"/>   
 		<input name="idFactura" type="hidden" value="${factura.getId()}"/>  		  
 		<button class="btn btn-lg btn-warning" Type="Submit"/>Aplicar</button>
-	<form>
+	</form>
 	</c:if>
 
 	<c:if test="${not empty msjCodigo}">
@@ -67,6 +67,14 @@
          </c:if>
 
     </c:if>
+    
+    <form action="/procesar-pago" method="POST">
+  <script
+   src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+   data-preference-id="${preference.id}">
+  </script>
+	</form>
+
 </div>
 
 </div>
