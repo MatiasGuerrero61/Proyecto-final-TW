@@ -51,7 +51,7 @@ public class ControladorMascotaPerdida {
         anuncio.setMascota(mascota);
         servicioMascotaPerdida.guardarAnuncio(anuncio);
 
-        return new ModelAndView("redirect:/home/index");
+        return new ModelAndView("redirect:/home");
     }
 
     @RequestMapping(value = "/anuncios", method = RequestMethod.GET)

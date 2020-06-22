@@ -23,4 +23,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	public Imagen actualizarFotoDePerfil(Usuario usuario, Imagen foto) {
 		return this.servicioUsuarioDao.actualizarFotoDePerfil(usuario, foto);
 	}
+
+	@Override
+	public Usuario obtenerUsuarioPorId(Long id) {
+		return this.servicioUsuarioDao.consultarUsuarioPorId(id);
+	}
 }

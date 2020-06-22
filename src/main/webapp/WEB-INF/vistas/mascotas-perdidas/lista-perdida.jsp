@@ -29,6 +29,16 @@
                     <h4><span>Mascota: ${anuncio.getMascota().getNombre()}</span></h4>
                     <h4><span>Caracteristicas: ${anuncio.getMascota().getCaracteristica()}</span></h4>
                     <h4><span>Animal: ${anuncio.getMascota().getAnimal()}</span></h4>
+                    <c:choose>
+                        <c:when test="${sessionScope.ID_USUARIO.equals(anuncio.getMascota().getDuenio().getId())}">
+                            <a href="<c:url value='/home' />">Eliminar post</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/crear-mensaje?usuario=${anuncio.getMascota().getDuenio().getId()}'/>">Enviar Mensaje</a>
+                        </c:otherwise>
+                    </c:choose>
+
+
                 </div>
 
             </c:forEach>
