@@ -13,7 +13,7 @@
 <body>
 <%@include file="../shared/header.jsp" %>
 
-<form:form action="anuncios" method="POST" modelAttribute="guardarAnuncio" class="formulario">
+<form:form action="anuncios" method="POST" modelAttribute="guardarAnuncio" class="formulario" enctype="multipart/form-data">
     <h2>Publicar anuncio de mascota perdida:</h2>
     <p>Complete los siguientes datos:</p>
     <div>
@@ -33,8 +33,12 @@
         <label for="Informacion">Mas informacion: </label>
         <form:textarea path="informacion" id="informacion" rows="5" cols="50" class="form-control"/>
     </div>
+    <div>
+        <label for="imagen">Imagen:</label>
+        <input id="imagen" type="file" class="form-control" name="imagen">
+    </div>
     <div style="float:right">
-        <a href=" <c:url value='/home/index'/> ">
+        <a href=" <c:url value='/home'/> ">
             <button class="btn btn-lg btn-secondary">Vovler</button>
         </a>
         <button class="btn btn-lg btn-danger" Type="submit"/>

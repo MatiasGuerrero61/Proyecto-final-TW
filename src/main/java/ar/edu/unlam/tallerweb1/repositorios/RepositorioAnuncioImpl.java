@@ -1,9 +1,11 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.excepciones.AnuncioNotFoundException;
 import ar.edu.unlam.tallerweb1.modelo.Anuncio;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,8 +29,16 @@ public class RepositorioAnuncioImpl implements RepositorioAnuncio {
 
     @Override
     public Anuncio obtenerAnuncioPorId(long id) {
-        // TODO Auto-generated method stub
-        return null;
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Anuncio.class);
+
+        Anuncio encontrado = (Anuncio) criteria.add(Restrictions.eq("id",id)).uniqueResult();
+        if(encontrado != null){
+            return encontrado;
+        }
+        else{
+            throw new AnuncioNotFoundException("no se encontro anuncio");
+        }
     }
 
     @Override

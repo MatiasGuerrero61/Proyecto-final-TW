@@ -29,6 +29,7 @@
                     <h4><span>Mascota: ${anuncio.getMascota().getNombre()}</span></h4>
                     <h4><span>Caracteristicas: ${anuncio.getMascota().getCaracteristica()}</span></h4>
                     <h4><span>Animal: ${anuncio.getMascota().getAnimal()}</span></h4>
+                    <img src="${pageContext.servletContext.contextPath}/files/${anuncio.getFotoDeAnuncio().getNombre()}" alt="" class="img-thumbnail">
                 </div>
 
             </c:forEach>
