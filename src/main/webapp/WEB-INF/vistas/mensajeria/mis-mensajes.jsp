@@ -31,6 +31,10 @@
 <%@include file="../shared/header.jsp" %>
 <div class="container">
     <h2>Mis Mensajes</h2>
+    <div class="row">
+        <div class="col-3"><a href="<c:url value ='/mis-mensajes?bandeja=entrada'/>">Bandeja de entrada</a></div>
+        <div class="col-3"><a href="<c:url value ='/mis-mensajes?bandeja=salida'/>">Bandeja de salida</a></div>
+    </div>
     <div>
         <div id="cabecera" class="row">
             <div class="col-2">Fecha</div>

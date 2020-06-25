@@ -40,7 +40,8 @@
             <p>${mensaje.getCuerpo()}</p>
         </div>
         <div class="card-footer">
-            <a class="btn btn-info" href="<c:url value='/crear-mensaje?usuario=${mensaje.getRemitente().getId()}'/>">Responder</a>
+            <a class="btn btn-info"
+               href="<c:url  value='/crear-mensaje?usuario=${mensaje.getRemitente().getId()}&asunto=${mensaje.getAsunto()}'/>">Responder</a>
         </div>
     </div>
 </div>

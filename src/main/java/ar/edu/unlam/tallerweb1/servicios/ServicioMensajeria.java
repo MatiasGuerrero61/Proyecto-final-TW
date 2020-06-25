@@ -9,7 +9,7 @@ public interface ServicioMensajeria {
 
     void enviarMensaje(Mensaje mensaje);
 
-    List<Mensaje> getMensajes(Usuario usuario);
+    List<Mensaje> getMensajes(Usuario usuario, String bandeja);
 
     Mensaje getMensajeById(Long id);
 }

@@ -11,5 +11,7 @@ public interface RepositorioMensaje {
 
     Mensaje getMensajeById(Long id);
 
-    List<Mensaje> getMensajesDeUsuario(Usuario usuario);
+    List<Mensaje> getMensajesEntradaDeUsuario(Usuario usuario);
+
+    List<Mensaje> getMensajesSalidaDeUsuario(Usuario usuario);
 }

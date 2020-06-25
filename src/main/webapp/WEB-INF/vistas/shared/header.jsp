@@ -29,7 +29,7 @@
                     </button>
                     <div class="dropdown-menu">
                         <div class="dropdown-header" style="text-transform:uppercase">${sessionScope.EMAIL}</div>
-                        <a class="dropdown-item" href="<c:url value ='/mis-mensajes'/>">Mis Mensajes</a>
+                        <a class="dropdown-item" href="<c:url value ='/mis-mensajes?bandeja=entrada'/>">Mis Mensajes</a>
                         <a class="dropdown-item" href="<c:url value='/perfil/cargar-foto'/>">Actualizar foto de perfil</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href=" <c:url value='/logout'/> ">Salir</a>

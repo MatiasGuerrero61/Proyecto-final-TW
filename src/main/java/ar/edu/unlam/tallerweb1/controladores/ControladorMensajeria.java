@@ -36,10 +36,12 @@ public class ControladorMensajeria {
     }
 
     @RequestMapping(path = "/crear-mensaje", method = RequestMethod.GET)
-    public ModelAndView createmensaje(@RequestParam("usuario") Long id){
+    public ModelAndView createmensaje(@RequestParam("usuario") Long id,
+                                      @RequestParam("asunto") String asunto){
         Usuario destinatario = servicioUsuario.obtenerUsuarioPorId(id);
         ModelMap modelo = new ModelMap();
         modelo.put("usuario", destinatario);
+        if(!asunto.isEmpty()){ modelo.put("asunto",asunto);}
         return new ModelAndView("mensajeria/crear-mensaje", modelo);
     }
 
@@ -62,10 +64,11 @@ public class ControladorMensajeria {
     }
 
     @RequestMapping(path = "/mis-mensajes", method = RequestMethod.GET)
-    public ModelAndView verListaMensajes(HttpServletRequest request){
+    public ModelAndView verListaMensajes(HttpServletRequest request,
+                                        @RequestParam("bandeja") String bandeja){
         Usuario actual = servicioLogin.obtenerUsuarioConectado(request);
 
-        List<Mensaje> mismensajes = servMensajeria.getMensajes(actual);
+        List<Mensaje> mismensajes = servMensajeria.getMensajes(actual,bandeja);
 
         ModelMap modelo = new ModelMap();
         if(mismensajes != null){

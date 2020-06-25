@@ -29,15 +29,26 @@ public class RepositorioMensajeImpl implements RepositorioMensaje {
 
     @Override
     public Mensaje getMensajeById(Long id) {
-
-        return sessionFactory.getCurrentSession().get(Mensaje.class,id);
+        Session session = sessionFactory.getCurrentSession();
+        Mensaje mensaje = session.get(Mensaje.class,id);
+        mensaje.setLeido(true);
+        session.update(mensaje);
+        return mensaje;
     }
 
     @Override
-    public List<Mensaje> getMensajesDeUsuario(Usuario usuario) {
+    public List<Mensaje> getMensajesEntradaDeUsuario(Usuario usuario) {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Mensaje.class)
-                .add(Restrictions.like("destinatario",usuario)).addOrder(Order.asc("leido")).list();
+                .add(Restrictions.like("destinatario",usuario))
+                .addOrder(Order.asc("leido")).list();
+    }
+
+    @Override
+    public List<Mensaje> getMensajesSalidaDeUsuario(Usuario usuario) {
+        return sessionFactory.getCurrentSession().createCriteria(Mensaje.class)
+                .add(Restrictions.like("remitente",usuario))
+                .addOrder(Order.asc("leido")).list();
     }
 
 }

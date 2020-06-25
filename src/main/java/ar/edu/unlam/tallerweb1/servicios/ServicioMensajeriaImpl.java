@@ -28,9 +28,14 @@ public class ServicioMensajeriaImpl implements ServicioMensajeria {
     }
 
     @Override
-    public List<Mensaje> getMensajes(Usuario usuario) {
+    public List<Mensaje> getMensajes(Usuario usuario, String bandeja) {
+        if(bandeja.equals("entrada")){
+            return repoMensajeDao.getMensajesEntradaDeUsuario(usuario);
+        }
+        else {
+            return repoMensajeDao.getMensajesSalidaDeUsuario(usuario);
+        }
 
-        return repoMensajeDao.getMensajesDeUsuario(usuario);
     }
 
     @Override
