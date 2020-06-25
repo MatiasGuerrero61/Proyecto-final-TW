@@ -4,6 +4,8 @@ import ar.edu.unlam.tallerweb1.modelo.Mensaje;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,11 +29,15 @@ public class RepositorioMensajeImpl implements RepositorioMensaje {
 
     @Override
     public Mensaje getMensajeById(Long id) {
-        return null;
+
+        return sessionFactory.getCurrentSession().get(Mensaje.class,id);
     }
 
     @Override
     public List<Mensaje> getMensajesDeUsuario(Usuario usuario) {
-        return null;
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Mensaje.class)
+                .add(Restrictions.like("destinatario",usuario)).addOrder(Order.asc("leido")).list();
     }
+
 }

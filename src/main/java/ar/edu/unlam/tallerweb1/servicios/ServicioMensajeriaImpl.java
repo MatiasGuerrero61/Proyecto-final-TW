@@ -29,6 +29,12 @@ public class ServicioMensajeriaImpl implements ServicioMensajeria {
 
     @Override
     public List<Mensaje> getMensajes(Usuario usuario) {
+
         return repoMensajeDao.getMensajesDeUsuario(usuario);
+    }
+
+    @Override
+    public Mensaje getMensajeById(Long id) {
+        return repoMensajeDao.getMensajeById(id);
     }
 }

@@ -24,7 +24,7 @@ public class Item {
 	
 	private Integer cantidad;
 	//un producto puede cambiar su precio con el pasar del tiempo, por lo cual, cuando haga efectiva una compra
-	//vamoa a guardar el precio al que se adquirió el producto
+	//vamoa a guardar el precio al que se adquirio el producto
 	private BigDecimal precioDeCompra;
 	
 	public Long getId() {

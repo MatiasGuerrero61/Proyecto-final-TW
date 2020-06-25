@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ControladorMensajeria {
@@ -58,5 +59,29 @@ public class ControladorMensajeria {
         mensaje.setRemitente(remitente);
         servMensajeria.enviarMensaje(mensaje);
         return new ModelAndView("redirect:/home");
+    }
+
+    @RequestMapping(path = "/mis-mensajes", method = RequestMethod.GET)
+    public ModelAndView verListaMensajes(HttpServletRequest request){
+        Usuario actual = servicioLogin.obtenerUsuarioConectado(request);
+
+        List<Mensaje> mismensajes = servMensajeria.getMensajes(actual);
+
+        ModelMap modelo = new ModelMap();
+        if(mismensajes != null){
+            modelo.put("mensajes", mismensajes);
+        }
+        else {
+            modelo.put("error","No tienes mensajes!");
+        }
+        return new ModelAndView("mensajeria/mis-mensajes", modelo);
+    }
+
+    @RequestMapping(path = "/mensaje", method = RequestMethod.GET)
+    public ModelAndView verMensaje(@RequestParam("cod") Long id){
+         Mensaje mensaje = servMensajeria.getMensajeById(id);
+         ModelMap modelo = new ModelMap();
+         modelo.put("mensaje", mensaje);
+         return new ModelAndView("mensajeria/vista-mensaje", modelo);
     }
 }

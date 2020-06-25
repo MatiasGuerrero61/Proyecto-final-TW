@@ -12,7 +12,7 @@
 
 <body>
 <%@include file="../shared/header.jsp" %>
-<div class="container-fluid">
+<div class="container">
 
     <h1>Lista de anuncios de mascotas perdidas</h1>
     <c:choose>
@@ -21,7 +21,8 @@
         </c:when>
         <c:otherwise>
             <c:forEach items="${anuncios}" var="anuncio">
-                <div class="card">
+                <div class="d-flex"></div>
+                <div class="card col-4">
                     <h4><span>Titulo: ${anuncio.getTitulo()}</span></h4>
                     <h4><span>Propietario: ${anuncio.getMascota().getDuenio().getNombre()}</span></h4>
                     <h4><span>Email: ${anuncio.getMascota().getDuenio().getEmail()}</span></h4>
@@ -31,10 +32,10 @@
                     <h4><span>Animal: ${anuncio.getMascota().getAnimal()}</span></h4>
                     <c:choose>
                         <c:when test="${sessionScope.ID_USUARIO.equals(anuncio.getMascota().getDuenio().getId())}">
-                            <a href="<c:url value='/home' />">Eliminar post</a>
+                            <a class="btn btn-danger" href="<c:url value='/home' />">Eliminar post!</a>
                         </c:when>
                         <c:otherwise>
-                            <a href="<c:url value='/crear-mensaje?usuario=${anuncio.getMascota().getDuenio().getId()}'/>">Enviar Mensaje</a>
+                            <a class="btn btn-info" href="<c:url value='/crear-mensaje?usuario=${anuncio.getMascota().getDuenio().getId()}'/>">Enviar Mensaje</a>
                         </c:otherwise>
                     </c:choose>
 

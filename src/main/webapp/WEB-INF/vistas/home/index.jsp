@@ -33,6 +33,8 @@
                 <a href=" <c:url value='/anuncios'/> ">Ver lista</a>
             </div>
         </div>
+
+
     </div>
 
 

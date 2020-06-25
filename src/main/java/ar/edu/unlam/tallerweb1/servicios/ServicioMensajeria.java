@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface ServicioMensajeria {
 
-    public void enviarMensaje(Mensaje mensaje);
+    void enviarMensaje(Mensaje mensaje);
 
-    public List<Mensaje> getMensajes(Usuario usuario);
+    List<Mensaje> getMensajes(Usuario usuario);
+
+    Mensaje getMensajeById(Long id);
 }

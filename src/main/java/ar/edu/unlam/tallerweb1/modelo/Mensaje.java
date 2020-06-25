@@ -8,6 +8,7 @@ public class Mensaje {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String cuerpo;
+    private String asunto;
     private Boolean leido;
     @ManyToOne
     private Usuario remitente;
@@ -52,5 +53,13 @@ public class Mensaje {
 
     public void setDestinatario(Usuario destinatario) {
         this.destinatario = destinatario;
+    }
+
+    public String getAsunto() {
+        return asunto;
+    }
+
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
     }
 }
