@@ -25,6 +25,7 @@ public class ServicioLoginImpl implements ServicioLogin {
 	static final String ROL = "ROL";
 	static final String EMAIL = "EMAIL";
 	static final String FOTO_DE_PERFIL = "FOTO_DE_PERFIL";
+	static final String NOMBRE = "NOMBRE";
 
 	private RepositorioUsuario servicioLoginDao;
 
@@ -64,7 +65,8 @@ public class ServicioLoginImpl implements ServicioLogin {
 	public void iniciarSesion(HttpServletRequest request, Usuario usuario) {
 		request.getSession().setAttribute(ID_USUARIO, usuario.getId());
 		request.getSession().setAttribute(EMAIL, usuario.getEmail());
-		request.getSession().setAttribute(ROL, usuario.getRol());		
+		request.getSession().setAttribute(ROL, usuario.getRol());
+		request.getSession().setAttribute(NOMBRE,usuario.getNombre());
 		if (usuario.getFotoDePerfil() !=null) {
 			request.getSession().setAttribute(FOTO_DE_PERFIL, usuario.getFotoDePerfil().getNombre());
 		}
