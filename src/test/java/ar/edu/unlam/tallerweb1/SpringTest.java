@@ -24,4 +24,8 @@ public abstract class SpringTest {
         return this.sessionFactory.getCurrentSession();
     }
 
+    protected SessionFactory getSessionFactory(){
+        return sessionFactory;
+    }
+
 }

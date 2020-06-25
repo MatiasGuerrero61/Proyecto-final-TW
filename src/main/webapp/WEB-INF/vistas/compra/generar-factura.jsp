@@ -21,7 +21,7 @@
 		<input name="codigo" type="text" class="form-control"/>   
 		<input name="idFactura" type="hidden" value="${factura.getId()}"/>  		  
 		<button class="btn btn-lg btn-warning" Type="Submit"/>Aplicar</button>
-	<form>
+	</form>
 	</c:if>
 
 	<c:if test="${not empty msjCodigo}">
