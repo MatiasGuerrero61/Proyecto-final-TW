@@ -1,4 +1,4 @@
-package ar.edu.unlam.tallerweb1.persistencia;
+package ar.edu.unlam.tallerweb1.servicios;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -14,7 +14,7 @@ import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.modelo.Descuento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDescuento;
 
-public class TestDescuento extends SpringTest {
+public class TestServicioDescuento extends SpringTest {
 	
 	@Autowired
 	ServicioDescuento servicioDescuento;
