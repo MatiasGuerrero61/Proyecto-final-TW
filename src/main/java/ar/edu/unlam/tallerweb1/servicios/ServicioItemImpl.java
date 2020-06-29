@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,15 @@ public class ServicioItemImpl implements ServicioItem {
 			importe = importe.add(item.getProducto().getImporte().multiply(new BigDecimal(item.getCantidad().toString())));
 		}
 		return importe;
+	}
+
+	@Override
+	public void fijarPrecioDeCompra(List<Item> items) {
+		for(Item item: items) {			
+			item.setPrecioDeCompra(item.getProducto().getImporte());
+			this.servicioItemDao.actualizarItem(item);
+		}
+		return;
 	}
 
 }

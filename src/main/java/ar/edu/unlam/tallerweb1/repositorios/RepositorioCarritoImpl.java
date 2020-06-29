@@ -27,7 +27,7 @@ public class RepositorioCarritoImpl implements RepositorioCarrito{
         Carrito carrito = (Carrito) session.createCriteria(Carrito.class)
         		.add(Restrictions.eq("tienda", tienda))
         		.add(Restrictions.eq("usuario", usuario))
-        		.add(Restrictions.eq("estado", EnumEstadoDeCompra.PENDIENTE_DE_COMPRA))
+        		.add(Restrictions.eq("estado", EnumEstadoDeCompra.SIN_CONFIRMAR))
         		.uniqueResult();
         		return carrito;
 	}
@@ -35,7 +35,7 @@ public class RepositorioCarritoImpl implements RepositorioCarrito{
 	@Override
 	public Carrito crearCarrito(Usuario usuario, Tienda tienda) {
 		Carrito carrito = new Carrito();
-		carrito.setEstado(EnumEstadoDeCompra.PENDIENTE_DE_COMPRA);
+		carrito.setEstado(EnumEstadoDeCompra.SIN_CONFIRMAR);
 		carrito.setUsuario(usuario);
 		carrito.setTienda(tienda);
 		final Session session = sessionFactory.getCurrentSession();
