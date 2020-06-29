@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,7 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mercadopago.MercadoPago;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
+import com.mercadopago.resources.Preference.AutoReturn;
 import com.mercadopago.resources.datastructures.preference.Payer;
+import com.mercadopago.resources.datastructures.preference.PaymentMethods;
+import com.mercadopago.resources.datastructures.preference.BackUrls;
 import com.mercadopago.resources.datastructures.preference.Item;
 import ar.edu.unlam.tallerweb1.modelo.Factura;
 
@@ -45,7 +47,22 @@ public class ServicioMercadoPagoImpl implements ServicioMercadoPago{
     	payer.setEmail( this.servicioFactura.obtenerMailDelComprador(factura) );
     	preference.setPayer(payer);
     	
+    	// Urls para las respuestas de MercadoPago
+    	String urlBase = "http://localhost:8080/proyecto-limpio-spring/";
+    	BackUrls backUrls = new BackUrls(
+                urlBase+"pago-exitoso/",
+                urlBase+"pago-pendiente/",
+                urlBase+"pago-rechazado/");
+    	preference.setBackUrls(backUrls);
+    	preference.setAutoReturn(AutoReturn.all);
+    	// Pagos en una cuota
+    	PaymentMethods paymentMethods = new PaymentMethods();
+    	paymentMethods.setDefaultInstallments(1);
+    	preference.setPaymentMethods(paymentMethods);
+    	
     	preference.save();
+    	factura.setIdMercadoPago(preference.getId());
+    	this.servicioFactura.actualizarFactura(factura);
 		return preference;
 	}
 

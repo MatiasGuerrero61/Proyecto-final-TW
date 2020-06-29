@@ -24,7 +24,7 @@ public class Factura {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Descuento descuento;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Carrito carrito;
 	
 	@Enumerated(EnumType.ORDINAL)
@@ -33,7 +33,16 @@ public class Factura {
 	private BigDecimal SubtotalSinDescuentos;
 	private BigDecimal SubtotalDescuentos;
 	private BigDecimal importeFinal;
+	private String idMercadoPago;
 	
+	public String getIdMercadoPago() {
+		return idMercadoPago;
+	}
+
+	public void setIdMercadoPago(String idMercadoPago) {
+		this.idMercadoPago = idMercadoPago;
+	}
+
 	public BigDecimal getSubtotalSinDescuentos() {
 		return SubtotalSinDescuentos;
 	}

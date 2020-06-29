@@ -22,12 +22,10 @@ public class ControladorLogin {
     // dicha clase debe estar anotada como @Service o @Repository y debe estar en un paquete de los indicados en
     // applicationContext.xml
     private ServicioLogin servicioLogin;
-    private ServicioCarrito servicioCarrito;
 
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin, ServicioCarrito servicioCarrito) {
+    public ControladorLogin(ServicioLogin servicioLogin) {
         this.servicioLogin = servicioLogin;
-        this.servicioCarrito = servicioCarrito;
     }
 
     // Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET

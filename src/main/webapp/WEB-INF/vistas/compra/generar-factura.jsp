@@ -14,20 +14,22 @@
 <%@include file="../shared/header.jsp" %>
 
 <div class = "container">
+
+	<c:if test="${not empty msj}">
+	  <div class="alert alert-${tipoDeMsj}" role="alert">
+	        <h4>${msj}</h4>
+	        <br>
+	  </div>
+	</c:if>	
 	
 	<c:if test="${empty factura.getDescuento()}">
 	<form action="aplicar-descuento"  method="POST">
 		<label>Aplicar c&oacute;digo de descuento: </label>
 		<input name="codigo" type="text" class="form-control"/>   
 		<input name="idFactura" type="hidden" value="${factura.getId()}"/>  		  
-		<button class="btn btn-lg btn-warning" Type="Submit"/>Aplicar</button>
+		<button class="btn btn-lg btn-warning" Type="Submit"/>Aplicar Descuento</button>
 	</form>
 	</c:if>
-
-	<c:if test="${not empty msjCodigo}">
-        <h4><span>${msjCodigo}</span></h4>
-        <br>
-    </c:if>	
     
     <div>
     	<c:if test="${not empty itemsFactura}">
@@ -67,13 +69,8 @@
          </c:if>
 
     </c:if>
-    
-    <form action="/procesar-pago" method="POST">
-  <script
-   src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
-   data-preference-id="${preference.id}">
-  </script>
-	</form>
+    <br>
+    <a class="btn btn-lg btn-primary" href="${preference.initPoint}">Pagar</a>
 
 </div>
 
