@@ -6,4 +6,6 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 public interface ServicioUsuario {
 	Imagen actualizarFotoDePerfil(Usuario usuario, Imagen foto);
 
+	Usuario obtenerUsuarioPorId(Long id);
+
 }

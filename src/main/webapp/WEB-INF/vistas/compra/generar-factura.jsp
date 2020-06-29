@@ -27,6 +27,7 @@
 		<label>Aplicar c&oacute;digo de descuento: </label>
 		<input name="codigo" type="text" class="form-control"/>   
 		<input name="idFactura" type="hidden" value="${factura.getId()}"/>  		  
+
 		<button class="btn btn-lg btn-warning" Type="Submit"/>Aplicar Descuento</button>
 	</form>
 	</c:if>
