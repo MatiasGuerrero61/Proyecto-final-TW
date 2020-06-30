@@ -13,7 +13,7 @@
 <body>
 <%@include file="../shared/header.jsp" %>
 
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Encontr&aacute; todo para tus mascotas!</h1>
 </div>
 
@@ -31,7 +31,8 @@
                         <h4 class="my-0 font-weight-normal">${tienda.getRazonSocial()}</h4>
                     </div>
                     <div class="card-body">
-                        <a href="<c:url value='/tiendas/${tienda.getId()}'/>" class="btn btn-lg btn-success">Ir a la
+                    	<a href="<c:url value='/mapa/${tienda.getId()}'/>" class="card-link d-block mb-3">Ver mapa</a>
+                        <a href="<c:url value='/tiendas/${tienda.getId()}'/>" class="btn btn-lg btn-success d-block">Ir a la
                             tienda</a>
                     </div>
                 </div>

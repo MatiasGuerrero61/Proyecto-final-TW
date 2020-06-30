@@ -15,7 +15,8 @@
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <c:if test="${not empty tienda}">
-        <h1 class="display-4">${tienda.getRazonSocial()}</h1>
+        <h1 class="display-4 d-inline">${tienda.getRazonSocial()}</h1>
+        <a href="<c:url value='/mapa/${tienda.getId()}'/>" class="btn btn-outline-success d-inline">Ver en el mapa</a>
     </c:if>
 </div>
 

@@ -125,5 +125,7 @@ public class ControladorTienda {
         servicioCarrito.eliminarProductoDeCarrito(idCarrito, idProducto);
         return new ModelAndView("redirect:tiendas/" + idTienda);
     }
+    
+
 
 }
