@@ -65,7 +65,7 @@
                     <div class="card-body">
                         <h1 class="card-title pricing-card-title">$ ${producto.getImporte()}</h1>
                         <c:choose>
-                        <c:when test="${producto.getStock() - item.getCantidad() > 0}">
+                        <c:when test="${producto.getStock() > 0}">
                         	<p class="card-title pricing-card-title">Stock: ${producto.getStock()} </p>
                         	<form action="<c:url value='/cargar-carrito'/>" method="POST">
                             	<input name="idTienda" value="${tienda.getId()}" type="hidden"/>

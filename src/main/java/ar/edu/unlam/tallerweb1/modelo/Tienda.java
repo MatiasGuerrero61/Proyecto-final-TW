@@ -10,14 +10,6 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Tienda {
-	public Ubicacion getUbicacion() {
-		return ubicacion;
-	}
-
-	public void setUbicacion(Ubicacion ubicacion) {
-		this.ubicacion = ubicacion;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -43,5 +35,12 @@ public class Tienda {
 		this.razonSocial = razonSocial;
 	}
 	
+	public Ubicacion getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(Ubicacion ubicacion) {
+		this.ubicacion = ubicacion;
+	}
 
 }
