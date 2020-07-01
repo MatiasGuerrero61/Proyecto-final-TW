@@ -74,6 +74,15 @@ public class Producto {
     public void setStock(int stock) {
         this.stock = stock;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Producto producto = (Producto) o;
+        return Float.compare(producto.id, id) == 0 
+                && nombre.equals(producto.nombre);
+    }
 
 
 }

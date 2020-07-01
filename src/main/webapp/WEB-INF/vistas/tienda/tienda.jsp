@@ -64,14 +64,22 @@
                     </div>
                     <div class="card-body">
                         <h1 class="card-title pricing-card-title">$ ${producto.getImporte()}</h1>
-                        <form action="<c:url value='/cargar-carrito'/>" method="POST">
-                            <input name="idTienda" value="${tienda.getId()}" type="hidden"/>
-                            <input name="idCarrito" value="${idCarrito}" type="hidden"/>
-                            <input name="idProducto" value="${producto.getId()}" type="hidden"/>
-                            <label for="cantidad">Cantidad:</label>
-                            <input type="number" min="1" value="1" name="cantidad" class="form-control" required>
-                            <button type="submit" class="btn btn-lg btn-success">Agregar al carrito</button>
-                        </form>
+                        <c:choose>
+                        <c:when test="${producto.getStock() - item.getCantidad() > 0}">
+                        	<p class="card-title pricing-card-title">Stock: ${producto.getStock()} </p>
+                        	<form action="<c:url value='/cargar-carrito'/>" method="POST">
+                            	<input name="idTienda" value="${tienda.getId()}" type="hidden"/>
+                            	<input name="idCarrito" value="${idCarrito}" type="hidden"/>
+                            	<input name="idProducto" value="${producto.getId()}" type="hidden"/>
+                            	<label for="cantidad">Cantidad:</label>
+                            	<input type="number" min="1" max="${producto.getStock()}" value="1" name="cantidad" class="form-control" required>
+                            	<button type="submit" class="btn btn-lg btn-success">Agregar al carrito</button>                           
+                        	</form>
+                        </c:when>
+                        <c:otherwise>
+                        	<p class="card-title pricing-card-title bg-warning">SIN STOCK </p>
+                        </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>

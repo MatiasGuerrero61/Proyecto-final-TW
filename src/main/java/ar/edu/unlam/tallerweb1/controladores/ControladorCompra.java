@@ -34,9 +34,15 @@ public class ControladorCompra {
     	Factura factura = this.servicioFactura.sincronizarFactura(idCarrito);
     	modelo.put("factura", factura);
     	List<Item> items = this.servicioFactura.listarItems(factura);
-    	modelo.put("itemsFactura", items);  	
-    	Preference preference = this.servicioMercadoPago.generarPreference(factura);
-    	modelo.put("preference", preference);
+    	modelo.put("itemsFactura", items);
+    	if(this.servicioFactura.checkearStock(factura)) {
+    		Preference preference = this.servicioMercadoPago.generarPreference(factura);
+        	modelo.put("preference", preference);
+    	}
+    	else {
+    		modelo.put("tipoDeMsj","danger");
+    		modelo.put("msj","Lo sentimos, no hay stock disponible...");
+    	}    	
     	return new ModelAndView("compra/generar-factura",modelo);
     }
     
@@ -119,7 +125,7 @@ public class ControladorCompra {
     	Preference preference = this.servicioMercadoPago.generarPreference(factura);
     	modelo.put("preference", preference);  	
     	modelo.put("tipoDeMsj","danger");
-		modelo.put("msj","Pago rechazado...");
+		modelo.put("msj","Pago rechazado o cancelado...");
 		return new ModelAndView("compra/generar-factura",modelo);
     }
 

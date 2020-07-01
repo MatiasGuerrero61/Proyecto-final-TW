@@ -14,4 +14,5 @@ public interface ServicioItem {
 	void eliminarItem(Long idCarrito, Long idProducto);
 	BigDecimal sumarImportesDeItems(Carrito carrito);
 	void fijarPrecioDeCompra(List<Item> items);
+	void actualizarStockDeProductos(List<Item> items);
 }

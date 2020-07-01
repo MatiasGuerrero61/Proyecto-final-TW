@@ -22,7 +22,7 @@
 	  </div>
 	</c:if>	
 	
-	<c:if test="${empty factura.getDescuento()}">
+	<c:if test="${empty factura.getDescuento() && not empty preference}">
 	<form action="aplicar-descuento"  method="POST">
 		<label>Aplicar c&oacute;digo de descuento: </label>
 		<input name="codigo" type="text" class="form-control"/>   
@@ -71,8 +71,17 @@
 
     </c:if>
     <br>
-    <a class="btn btn-lg btn-primary" href="${preference.initPoint}">Pagar</a>
 
+<c:choose>
+	<c:when test="${ not empty preference}">
+ 		<a class="btn btn-lg btn-primary" href="${preference.initPoint}">Pagar</a>
+	</c:when>
+	<c:otherwise>
+		<p class=" bg-warning">Por favor, regrese y modifique su compra de acuerdo al stock disponible  </p>
+ 		<a href="<c:url value='/tiendas/${factura.getCarrito().getTienda().getId()}'/>" class="btn btn-lg btn-danger">Volver atr&aacute;s</a>
+	</c:otherwise>
+</c:choose>
+    
 </div>
 
 </div>

@@ -140,12 +140,25 @@ public class ServicioFacturaImpl implements ServicioFactura {
 		factura.setEstado(EnumEstadoDeCompra.COMPRA_FINALIZADA);
 		factura.getCarrito().setEstado(EnumEstadoDeCompra.COMPRA_FINALIZADA);
 		this.servicioFacturaDao.actualizarFactura(factura);
+		this.servicioItem.actualizarStockDeProductos(this.servicioItem.listarItems(factura.getCarrito()));
 	}
 
 	@Override
 	public void pagoPendiente(Factura factura) {
 		factura.setEstado(EnumEstadoDeCompra.PENDIENTE_DE_PAGO);
 		factura.getCarrito().setEstado(EnumEstadoDeCompra.PENDIENTE_DE_PAGO);
-		this.servicioFacturaDao.actualizarFactura(factura);		
+		this.servicioFacturaDao.actualizarFactura(factura);
+		this.servicioItem.actualizarStockDeProductos(this.servicioItem.listarItems(factura.getCarrito()));
+	}
+
+	@Override
+	public boolean checkearStock(Factura factura) {
+		List<Item> items = this.servicioItem.listarItems(factura.getCarrito());
+		for(Item item: items) {
+			if(item.getCantidad() > item.getProducto().getStock()) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

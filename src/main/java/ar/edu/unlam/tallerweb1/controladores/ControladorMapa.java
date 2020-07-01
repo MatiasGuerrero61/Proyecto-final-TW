@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,7 +21,6 @@ public class ControladorMapa {
     @Autowired
     public ControladorMapa(ServicioTienda servicioTienda) {
         this.servicioTienda = servicioTienda;
-
     }
 	
     @RequestMapping(path = "/mapa/{id}", method = RequestMethod.GET)
@@ -29,5 +30,12 @@ public class ControladorMapa {
         modelo.put("tienda", tienda);
         return new ModelAndView("mapa/mapa-de-tienda", modelo);
     }
-
+    
+    @RequestMapping(path = "/mapa", method = RequestMethod.GET)
+    public ModelAndView irAMapa() {
+        ModelMap modelo = new ModelMap();
+        List<Tienda> tiendas = servicioTienda.listarTiendas();
+        modelo.put("tiendas", tiendas);
+        return new ModelAndView("mapa/mapa-general", modelo);
+    }
 }

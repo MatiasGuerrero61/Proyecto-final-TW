@@ -22,4 +22,5 @@ public interface ServicioFactura {
 	void actualizarFactura(Factura factura);
 	void pagoExitoso(Factura factura);
 	void pagoPendiente(Factura factura);
+	boolean checkearStock(Factura factura);
 }
