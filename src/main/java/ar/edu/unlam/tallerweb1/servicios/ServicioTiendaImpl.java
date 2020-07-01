@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.excepciones.TiendaNotFoundException;
 import ar.edu.unlam.tallerweb1.modelo.Filtro;
+import ar.edu.unlam.tallerweb1.modelo.Item;
 import ar.edu.unlam.tallerweb1.modelo.Producto;
 import ar.edu.unlam.tallerweb1.modelo.Tienda;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioTienda;
@@ -57,5 +58,24 @@ public class ServicioTiendaImpl implements ServicioTienda {
         return servicioTiendaDao.listarCategorias(tienda);
     }
 
+	@Override
+	public List<Producto> simularActualizacionDeStock(List<Item> items, List<Producto> productos) {
+		for(Item item: items) {
+			System.out.println("Entro al for de la simulacion...");
+			System.out.println("cant productos: " + productos.size());
+			Integer index = productos.indexOf(item.getProducto());
+			System.out.println("Index: " + index);
+			if (index > -1) {
+				Producto producto = productos.get(index);
+				System.out.println("Stock en producto: "+ producto.getStock());
+				System.out.println("Stock en item: "+ item.getCantidad());
+				producto.setStock(producto.getStock()-item.getCantidad());
+				System.out.println("Stock actualizado individual: "+ producto.getStock());
+				productos.set(index, producto);
+				System.out.println("Stock actualizado en productos: "+ productos.get(index).getStock());
+			}
+		}
+		return productos;
+	}
 
 }

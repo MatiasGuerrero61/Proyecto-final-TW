@@ -1,9 +1,11 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -13,6 +15,9 @@ public class Tienda {
 	private long id;
 	
 	private String razonSocial;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Ubicacion ubicacion;
 
 	public long getId() {
 		return id;
@@ -28,6 +33,14 @@ public class Tienda {
 
 	public void setRazonSocial(String razonSocial) {
 		this.razonSocial = razonSocial;
+	}
+	
+	public Ubicacion getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(Ubicacion ubicacion) {
+		this.ubicacion = ubicacion;
 	}
 
 }

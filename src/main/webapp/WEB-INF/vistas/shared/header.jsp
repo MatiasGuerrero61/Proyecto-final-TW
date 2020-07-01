@@ -21,7 +21,7 @@
                 <div class="dropdown">
                     <button type="button" class="btn btn-secondary" data-toggle="dropdown">
                         <span>
-                            <img src="files/${sessionScope.FOTO_DE_PERFIL}" alt="" class="perfil">
+                            <img src="<c:url value='/files/${sessionScope.FOTO_DE_PERFIL}'/>" alt="" class="perfil">
                         </span>
                         <span style="text-transform:capitalize;font-weight:bold">
                                 ${sessionScope.NOMBRE}
@@ -47,8 +47,8 @@
     <ul class="navbar-nav mr-auto">
         <li class="nav-item mr-auto"><a class="nav-link" href="#"></a></li>
         <li class="nav-item mr-auto"><a class="nav-link" href="<c:url value='/home'/> ">Home</a></li>
-        <li class="nav-item mr-auto"><a class="nav-link" href="<c:url value='/tiendas'/>">Tiendas</a>
-        </li>
+        <li class="nav-item mr-auto"><a class="nav-link" href="<c:url value='/tiendas'/>">Tiendas</a></li>
+        <li class="nav-item mr-auto"><a class="nav-link" href="<c:url value='/mapa'/>">Mapa</a></li>
         <li class="nav-item mr-auto"></li>
     </ul>
 </nav>
