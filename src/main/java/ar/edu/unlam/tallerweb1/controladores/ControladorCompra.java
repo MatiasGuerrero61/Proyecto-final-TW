@@ -3,6 +3,9 @@ package ar.edu.unlam.tallerweb1.controladores;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
 import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unlam.tallerweb1.modelo.Factura;
 import ar.edu.unlam.tallerweb1.modelo.Item;
+import ar.edu.unlam.tallerweb1.servicios.ServicioEmail;
 import ar.edu.unlam.tallerweb1.servicios.ServicioFactura;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMercadoPago;
 
@@ -21,11 +25,15 @@ public class ControladorCompra {
 	
 	private ServicioFactura servicioFactura;
 	private ServicioMercadoPago servicioMercadoPago;
+	private ServicioEmail servicioEmail;
 
     @Autowired
-    public ControladorCompra(ServicioFactura servicioFactura, ServicioMercadoPago servicioMercadoPago) {
+    public ControladorCompra(ServicioFactura servicioFactura, 
+    						ServicioMercadoPago servicioMercadoPago,
+    						ServicioEmail servicioEmail) {
         this.servicioFactura = servicioFactura;
         this.servicioMercadoPago = servicioMercadoPago;
+        this.servicioEmail = servicioEmail;
         }
 	
     @RequestMapping(value = "/generar-factura", method = RequestMethod.POST)
@@ -77,13 +85,15 @@ public class ControladorCompra {
     								@RequestParam("preference_id") String preferenceId,
     								@RequestParam("site_id") String siteId,
     								@RequestParam("processing_mode") String processingMode,
-    								@RequestParam("merchant_account_id") String merchantAccountId) throws MPException {
+    								@RequestParam("merchant_account_id") String merchantAccountId) throws MPException, AddressException, MessagingException {
     	
     	ModelMap modelo = new ModelMap();
     	modelo.put("tipoDeMsj","success");
 		modelo.put("msj","La compra ha sido &eacute;xitosa!");
     	Factura factura = this.servicioFactura.obtenerFacturaPorIdMercadoPago(preferenceId);
     	this.servicioFactura.pagoExitoso(factura);
+    	String msj = this.servicioEmail.generarMsjPagoAprobado(factura);
+    	this.servicioEmail.enviarMsj(factura.getCarrito().getUsuario().getEmail(),"Su pago ha sido aprobado", msj);
     	return new ModelAndView("shared/mensaje",modelo);
     }  
     
@@ -96,13 +106,15 @@ public class ControladorCompra {
     								@RequestParam("preference_id") String preferenceId,
     								@RequestParam("site_id") String siteId,
     								@RequestParam("processing_mode") String processingMode,
-    								@RequestParam("merchant_account_id") String merchantAccountId) throws MPException {
+    								@RequestParam("merchant_account_id") String merchantAccountId) throws MPException, AddressException, MessagingException {
     	
     	ModelMap modelo = new ModelMap();
     	modelo.put("tipoDeMsj","info");
 		modelo.put("msj","Compra pendiente de pago...");
     	Factura factura = this.servicioFactura.obtenerFacturaPorIdMercadoPago(preferenceId);
     	this.servicioFactura.pagoPendiente(factura);
+    	String msj = this.servicioEmail.generarMsjPagoPendiente(factura);
+    	this.servicioEmail.enviarMsj(factura.getCarrito().getUsuario().getEmail(),"Su pago ha sido aprobado", msj);
     	return new ModelAndView("shared/mensaje",modelo);
     }
     
