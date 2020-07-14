@@ -98,9 +98,11 @@
 
     let caminadorIcon = new L.icon({iconUrl: '${pageContext.servletContext.contextPath}/files/caminador_icon.png'})
 
-    marcadores
-        .filter(marcador => e.latlng.distanceTo(marcador.latLng) < radius)
-        .forEach(marcador => L.marker(marcador.latLng, {icon: caminadorIcon}).bindPopup("Paseador: <b>" + marcador.nombre +"</b><br>"+"<b>Tel&eacute;fono: " + marcador.telefono +"</b><br>"+"Tarifa: <b>$" + marcador.tarifa +"</b><br>").addTo(map))
+    marcadores.filter(marcador => e.latlng.distanceTo(marcador.latLng) < radius).
+        forEach(marcador => L.marker(marcador.latLng, {icon: caminadorIcon}).
+            bindPopup("Paseador: <b>" + marcador.nombre + "</b><br>" + "Tel&eacute;fono: <b>" + marcador.telefono +
+                "</b><br>" + "Tarifa: <b>$" + marcador.tarifa + "</b><br>").
+            addTo(map))
 
   }
 
