@@ -42,9 +42,13 @@ public class ServicioMascotaPerdidaImp implements ServicioMascotaPerdida {
 
     @Override
     public List<Anuncio> getListaAnuncio() {
-
-
         return servicioAnuncio.getAnuncios();
+    }
+
+    @Override
+    public List<Anuncio> getListaAnuncioByUsuario(HttpServletRequest request) {
+        Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
+        return servicioAnuncio.getAnunciosByUsuario(usuario);
     }
 
     @Override

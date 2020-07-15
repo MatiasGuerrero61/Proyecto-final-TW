@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioArchivos;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMascotaPerdida;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -59,6 +60,7 @@ public class ControladorMascotaPerdida {
 
         String path = request.getSession().getServletContext().getRealPath("/files/");
         Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
+        anuncio.setDuenio(usuario);
 
         if (usuario != null) {
             Album albumDePerfil = servicioArchivos.buscarOCrearAlbumDePerfil(usuario);
@@ -83,5 +85,13 @@ public class ControladorMascotaPerdida {
         modelMap.put("anuncios", anuncios);
 
         return new ModelAndView("mascotas-perdidas/lista-perdida", modelMap);
+    }
+
+    @RequestMapping(path = "/mis-anuncios", method = RequestMethod.GET)
+    public ModelAndView misAnuncios(HttpServletRequest request){
+        List<Anuncio> anuncios = servicioMascotaPerdida.getListaAnuncioByUsuario(request);
+        ModelMap modelo = new ModelMap();
+        modelo.put("anuncios", anuncios);
+        return new ModelAndView("mascotas-perdidas/mis-perdidas", modelo);
     }
 }
