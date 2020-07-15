@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import java.util.List;
 
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +17,8 @@ public class ServicioAnuncioImpl implements ServicioAnuncio{
 	private RepositorioAnuncio repoAnuncio;
 	
 	@Autowired
-	public ServicioAnuncioImpl(RepositorioAnuncio repositorio) {
-		this.repoAnuncio = repositorio;
+	public ServicioAnuncioImpl(RepositorioAnuncio repositorioAnuncio) {
+		this.repoAnuncio = repositorioAnuncio;
 	}
 
 	@Override
@@ -29,5 +30,10 @@ public class ServicioAnuncioImpl implements ServicioAnuncio{
 	@Override
 	public List<Anuncio> getAnuncios() {
 		return repoAnuncio.obtenerAnuncios();
+	}
+
+	@Override
+	public List<Anuncio> getAnunciosByUsuario(Usuario usuario) {
+		return repoAnuncio.obtenerAnunciosByUsuario(usuario);
 	}
 }
