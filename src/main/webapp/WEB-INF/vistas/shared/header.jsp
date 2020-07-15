@@ -49,6 +49,7 @@
         <li class="nav-item mr-auto"><a class="nav-link" href="<c:url value='/home'/> ">Home</a></li>
         <li class="nav-item mr-auto"><a class="nav-link" href="<c:url value='/tiendas'/>">Tiendas</a></li>
         <li class="nav-item mr-auto"><a class="nav-link" href="<c:url value='/mapa'/>">Mapa</a></li>
+        <li class="nav-item mr-auto"><a class="nav-link" href="<c:url value='/paseadores'/>">Paseadores</a></li>
         <li class="nav-item mr-auto"></li>
     </ul>
 </nav>
