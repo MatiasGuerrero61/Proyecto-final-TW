@@ -38,6 +38,7 @@ public class ControladorMensajeria {
     @RequestMapping(path = "/crear-mensaje", method = RequestMethod.GET)
     public ModelAndView createmensaje(@RequestParam("usuario") Long id,
                                       @RequestParam(name = "asunto",required = false) String asunto){
+
         Usuario destinatario = servicioUsuario.obtenerUsuarioPorId(id);
         ModelMap modelo = new ModelMap();
         modelo.put("usuario", destinatario);
