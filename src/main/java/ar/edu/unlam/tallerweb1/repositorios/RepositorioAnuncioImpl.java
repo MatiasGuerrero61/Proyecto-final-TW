@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.excepciones.AnuncioNotFoundException;
 import ar.edu.unlam.tallerweb1.modelo.Anuncio;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -47,6 +48,14 @@ public class RepositorioAnuncioImpl implements RepositorioAnuncio {
         Criteria criteria = session.createCriteria(Anuncio.class);
         List<Anuncio> anuncios = criteria.list();
         return anuncios;
+    }
+
+    @Override
+    public List<Anuncio> obtenerAnunciosByUsuario(Usuario usuario) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Anuncio.class)
+                .add(Restrictions.eq("duenio",usuario))
+                .list();
     }
 
     @Override
