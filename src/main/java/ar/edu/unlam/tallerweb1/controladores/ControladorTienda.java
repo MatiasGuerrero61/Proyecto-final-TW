@@ -73,13 +73,6 @@ public class ControladorTienda {
         Tienda tienda = servicioTienda.buscarTiendaPorId(Long.parseLong(id));
         modelo.put("tienda", tienda);
         Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
-        
-        if (usuario != null) {
-        	Carrito carrito = servicioCarrito.sincronizarCarrito(usuario,tienda);
-        	List<Item> items = servicioCarrito.listarItems(carrito);
-        	modelo.put("idCarrito",carrito.getId());
-            modelo.put("itemsCarrito", items);
-        }
 
         Filtro filtro = new Filtro();
         filtro.setDescripcion(descripcion);
@@ -90,7 +83,15 @@ public class ControladorTienda {
 
         List<Producto> productos = servicioTienda.filtrarProductos(filtro, tienda);
         List<Categoria> categorias = productos.stream().map(Producto::getCategoria).collect(Collectors.toList());
-
+        
+        if (usuario != null) {
+        	Carrito carrito = servicioCarrito.sincronizarCarrito(usuario,tienda);
+        	List<Item> items = servicioCarrito.listarItems(carrito);
+        	modelo.put("idCarrito",carrito.getId());
+            modelo.put("itemsCarrito", items);
+            productos = this.servicioTienda.simularActualizacionDeStock(items, productos);
+        }
+        
         modelo.put("productos", productos);
         modelo.put("filtros", filtro);
         modelo.put("categorias", categorias);
@@ -125,5 +126,7 @@ public class ControladorTienda {
         servicioCarrito.eliminarProductoDeCarrito(idCarrito, idProducto);
         return new ModelAndView("redirect:tiendas/" + idTienda);
     }
+    
+
 
 }

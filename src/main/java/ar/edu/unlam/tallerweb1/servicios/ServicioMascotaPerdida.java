@@ -14,6 +14,7 @@ public interface ServicioMascotaPerdida {
     void guardarAnuncio(Anuncio anuncio);
 
     List<Anuncio> getListaAnuncio();
+    List<Anuncio> getListaAnuncioByUsuario(HttpServletRequest request);
 
     List<Mascota> getMascotaDeUsuario(HttpServletRequest request);
 }

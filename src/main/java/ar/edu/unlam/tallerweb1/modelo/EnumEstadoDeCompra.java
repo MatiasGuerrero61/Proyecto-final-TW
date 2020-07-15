@@ -1,7 +1,8 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 public enum EnumEstadoDeCompra {
-	PENDIENTE_DE_COMPRA,
+	SIN_CONFIRMAR,
 	COMPRA_FINALIZADA,
-	COMPRA_ANULADA
+	COMPRA_ANULADA,
+	PENDIENTE_DE_PAGO
 }

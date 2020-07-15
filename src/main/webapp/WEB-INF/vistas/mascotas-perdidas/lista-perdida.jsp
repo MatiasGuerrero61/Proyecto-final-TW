@@ -22,6 +22,7 @@
         <c:otherwise>
             <div class="d-flex flex-wrap">
             <c:forEach items="${anuncios}" var="anuncio">
+            <c:if test="${!sessionScope.ID_USUARIO.equals(anuncio.getDuenio().getId())}">
                 <div class="col-3 p-1">
                     <%-- CARD --%>
                     <div class="card">
@@ -54,21 +55,25 @@
                                 <h4><span>Mascota: ${anuncio.getMascota().getNombre()}</span></h4>
                                 <h4><span>Caracteristicas: ${anuncio.getMascota().getCaracteristica()}</span></h4>
                                 <h4><span>Animal: ${anuncio.getMascota().getAnimal()}</span></h4>
+                              <c:if test="${anuncio.getRecompensa() != 0.0}">
+                                <h4><span>Recompensa: $ ${anuncio.getRecompensa()}</span></h4>
+                              </c:if>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <c:choose>
-                                    <c:when test="${sessionScope.ID_USUARIO.equals(anuncio.getMascota().getDuenio().getId())}">
+                                    <c:when test="${sessionScope.ID_USUARIO.equals(anuncio.getDuenio().getId())}">
                                         <a class="btn btn-danger" href="<c:url value='/home' />">Eliminar post!</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a class="btn btn-info" href="<c:url value='/crear-mensaje?usuario=${anuncio.getMascota().getDuenio().getId()}'/>">Contactar</a>
+                                        <a class="btn btn-info" href="<c:url value='/crear-mensaje?usuario=${anuncio.getDuenio().getId()}'/>">Contactar</a>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
                         </div>
                     </div>
                 </div>
+          </c:if>
         </c:forEach>
         </div>
     </c:otherwise>

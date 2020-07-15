@@ -14,20 +14,23 @@
 <%@include file="../shared/header.jsp" %>
 
 <div class = "container">
+
+	<c:if test="${not empty msj}">
+	  <div class="alert alert-${tipoDeMsj}" role="alert">
+	        <h4>${msj}</h4>
+	        <br>
+	  </div>
+	</c:if>	
 	
-	<c:if test="${empty factura.getDescuento()}">
+	<c:if test="${empty factura.getDescuento() && not empty preference}">
 	<form action="aplicar-descuento"  method="POST">
 		<label>Aplicar c&oacute;digo de descuento: </label>
 		<input name="codigo" type="text" class="form-control"/>   
 		<input name="idFactura" type="hidden" value="${factura.getId()}"/>  		  
-		<button class="btn btn-lg btn-warning" Type="Submit"/>Aplicar</button>
+
+		<button class="btn btn-lg btn-warning" Type="Submit"/>Aplicar Descuento</button>
 	</form>
 	</c:if>
-
-	<c:if test="${not empty msjCodigo}">
-        <h4><span>${msjCodigo}</span></h4>
-        <br>
-    </c:if>	
     
     <div>
     	<c:if test="${not empty itemsFactura}">
@@ -67,6 +70,18 @@
          </c:if>
 
     </c:if>
+    <br>
+
+<c:choose>
+	<c:when test="${ not empty preference}">
+ 		<a class="btn btn-lg btn-primary" href="${preference.initPoint}">Pagar</a>
+	</c:when>
+	<c:otherwise>
+		<p class=" bg-warning">Por favor, regrese y modifique su compra de acuerdo al stock disponible  </p>
+ 		<a href="<c:url value='/tiendas/${factura.getCarrito().getTienda().getId()}'/>" class="btn btn-lg btn-danger">Volver atr&aacute;s</a>
+	</c:otherwise>
+</c:choose>
+    
 </div>
 
 </div>
