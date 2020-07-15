@@ -1,21 +1,19 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Anuncio {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String titulo;
+	private String informacion;
+	private Double recompensa;
+	@ManyToOne
+	private Usuario duenio;
 	@OneToOne
 	private Mascota mascota;
-	private String informacion;
 	@OneToOne
 	private Imagen fotoDeAnuncio;
 	public long getId() {
@@ -36,6 +34,8 @@ public class Anuncio {
 	public void setInformacion(String informacion) {
 		this.informacion = informacion;
 	}
+	public Double getRecompensa() {return recompensa;}
+	public void setRecompensa(Double recompensa) {this.recompensa = recompensa;}
 	public String getTitulo() {
 		return titulo;
 	}
@@ -48,6 +48,8 @@ public class Anuncio {
 	public void setFotoDeAnuncio(Imagen fotoDeAnuncio) {
 		this.fotoDeAnuncio = fotoDeAnuncio;
 	}
+	public Usuario getDuenio() {return duenio;}
+	public void setDuenio(Usuario duenio) {this.duenio = duenio;}
 	
 	
 	

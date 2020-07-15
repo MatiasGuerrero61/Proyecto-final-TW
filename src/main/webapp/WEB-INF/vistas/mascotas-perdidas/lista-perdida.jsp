@@ -21,7 +21,7 @@
         </c:when>
         <c:otherwise>
             <c:forEach items="${anuncios}" var="anuncio">
-                <div class="d-flex"></div>
+                <c:if test="${!sessionScope.ID_USUARIO.equals(anuncio.getDuenio().getId())}">
                 <div class="card col-4">
                     <h4><span>Titulo: ${anuncio.getTitulo()}</span></h4>
                     <h4><span>Propietario: ${anuncio.getMascota().getDuenio().getNombre()}</span></h4>
@@ -30,19 +30,22 @@
                     <h4><span>Mascota: ${anuncio.getMascota().getNombre()}</span></h4>
                     <h4><span>Caracteristicas: ${anuncio.getMascota().getCaracteristica()}</span></h4>
                     <h4><span>Animal: ${anuncio.getMascota().getAnimal()}</span></h4>
+                    <c:if test="${anuncio.getRecompensa() != 0.0}">
+                        <h4><span>Recompensa: $ ${anuncio.getRecompensa()}</span></h4>
+                    </c:if>
                   <img src="${pageContext.servletContext.contextPath}/files/${anuncio.getFotoDeAnuncio().getNombre()}" alt="" class="img-thumbnail">
 
                     <c:choose>
-                        <c:when test="${sessionScope.ID_USUARIO.equals(anuncio.getMascota().getDuenio().getId())}">
+                        <c:when test="${sessionScope.ID_USUARIO.equals(anuncio.getDuenio().getId())}">
                             <a class="btn btn-danger" href="<c:url value='/home' />">Eliminar post!</a>
                         </c:when>
                         <c:otherwise>
-                            <a class="btn btn-info" href="<c:url value='/crear-mensaje?usuario=${anuncio.getMascota().getDuenio().getId()}'/>">Enviar Mensaje</a>
+                            <a class="btn btn-info" href="<c:url value='/crear-mensaje?usuario=${anuncio.getDuenio().getId()}'/>">Enviar Mensaje</a>
                         </c:otherwise>
                     </c:choose>
                     
                 </div>
-
+                </c:if>
             </c:forEach>
         </c:otherwise>
     </c:choose>
