@@ -1,13 +1,17 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import ar.edu.unlam.tallerweb1.modelo.EnumEstadoDeCompra;
 import ar.edu.unlam.tallerweb1.modelo.Factura;
+import ar.edu.unlam.tallerweb1.modelo.Facturacion;
 
 @Repository("repositorioFactura")
 public class RepositorioFacturaImpl implements RepositorioFactura {
@@ -60,5 +64,24 @@ public class RepositorioFacturaImpl implements RepositorioFactura {
 				.add(Restrictions.eq("idMercadoPago",preferenceId))
 				.uniqueResult();
 		return factura;
+	}
+
+	@Override
+	public List<Facturacion> obtenerFacturacion(LocalDateTime fechaDesde, LocalDateTime fechaHasta) {
+		final Session session = sessionFactory.getCurrentSession();
+		List<Facturacion> facturacion = session.createCriteria(Factura.class)
+				.createAlias("carrito", "carrito")
+				.createAlias("carrito.tienda", "tienda")
+				.add(Restrictions.ge("fechaYHoraDeCompra",fechaDesde))
+				.add(Restrictions.le("fechaYHoraDeCompra",fechaHasta))
+				.add(Restrictions.eq("estado",EnumEstadoDeCompra.COMPRA_FINALIZADA))
+				.setProjection(Projections.projectionList()
+						.add(Projections.rowCount(), "cantidadDeVentas")
+						.add(Projections.sum("importeFinal"),"importeTotal")
+						.add(Projections.property("tienda.razonSocial"),"nombreDeTienda")
+						.add(Projections.groupProperty("tienda.id"),"idTienda"))
+				.setResultTransformer(Transformers.aliasToBean(Facturacion.class))
+				.list();
+		return facturacion;
 	}	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Carrito;
 import ar.edu.unlam.tallerweb1.modelo.Factura;
+import ar.edu.unlam.tallerweb1.modelo.Facturacion;
 import ar.edu.unlam.tallerweb1.modelo.Item;
 
 public interface ServicioFactura {
@@ -23,4 +24,5 @@ public interface ServicioFactura {
 	void pagoExitoso(Factura factura);
 	void pagoPendiente(Factura factura);
 	boolean checkearStock(Factura factura);
+	List<Facturacion> obtenerFacturacionMensual(String inputMonth);
 }
