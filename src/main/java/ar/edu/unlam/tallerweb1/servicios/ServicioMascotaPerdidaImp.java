@@ -41,6 +41,11 @@ public class ServicioMascotaPerdidaImp implements ServicioMascotaPerdida {
     }
 
     @Override
+    public void borrarAnuncioById(Long id) {
+        servicioAnuncio.borrarAnuncioById(id);
+    }
+
+    @Override
     public List<Anuncio> getListaAnuncio() {
         return servicioAnuncio.getAnuncios();
     }
@@ -55,5 +60,10 @@ public class ServicioMascotaPerdidaImp implements ServicioMascotaPerdida {
     public List<Mascota> getMascotaDeUsuario(HttpServletRequest request) {
         Usuario usuario = servicioLogin.obtenerUsuarioConectado(request);
         return servicioMascota.getListaMascotaDeUsuario(usuario);
+    }
+
+    @Override
+    public Anuncio getAnuncioById(Long idanuncio) {
+        return servicioAnuncio.getAnuncioById(idanuncio);
     }
 }

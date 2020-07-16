@@ -13,8 +13,12 @@ public interface ServicioMascotaPerdida {
 
     void guardarAnuncio(Anuncio anuncio);
 
+    void borrarAnuncioById(Long id);
+
     List<Anuncio> getListaAnuncio();
     List<Anuncio> getListaAnuncioByUsuario(HttpServletRequest request);
 
     List<Mascota> getMascotaDeUsuario(HttpServletRequest request);
+
+    Anuncio getAnuncioById(Long idanuncio);
 }

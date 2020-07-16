@@ -4,6 +4,9 @@ import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioArchivos;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMascotaPerdida;
+import ar.edu.unlam.tallerweb1.servicios.ServicioMercadoPago;
+import com.mercadopago.exceptions.MPException;
+import com.mercadopago.resources.Preference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
@@ -26,12 +29,15 @@ public class ControladorMascotaPerdida {
     private ServicioMascotaPerdida servicioMascotaPerdida;
     private ServicioArchivos servicioArchivos;
     private ServicioLogin servicioLogin;
+    private ServicioMercadoPago servicioMercadoPago;
 
     @Autowired
-    public ControladorMascotaPerdida(ServicioMascotaPerdida servicioMascotaPerdida, ServicioLogin servicioLogin, ServicioArchivos servicioArchivos) {
+    public ControladorMascotaPerdida(ServicioMascotaPerdida servicioMascotaPerdida, ServicioLogin servicioLogin,
+                                     ServicioArchivos servicioArchivos, ServicioMercadoPago servicioMP) {
         this.servicioMascotaPerdida = servicioMascotaPerdida;
         this.servicioArchivos = servicioArchivos;
         this.servicioLogin = servicioLogin;
+        this.servicioMercadoPago = servicioMP;
     }
 
     @RequestMapping(path = "/creacion-anuncio", method = RequestMethod.GET)
@@ -94,4 +100,29 @@ public class ControladorMascotaPerdida {
         modelo.put("anuncios", anuncios);
         return new ModelAndView("mascotas-perdidas/mis-perdidas", modelo);
     }
+
+    @RequestMapping(path = "/eliminar-anuncio", method = RequestMethod.GET)
+    public ModelAndView eliminarAnuncio(@RequestParam(required = true) Long idanuncio){
+        servicioMascotaPerdida.borrarAnuncioById(idanuncio);
+        return new ModelAndView("redirect:/mis-anuncios");
+    }
+
+    @RequestMapping(path="/pagar-anuncio", method = RequestMethod.GET)
+    public ModelAndView pagarAnuncio(@RequestParam(required = true) Long idanuncio,
+                                     HttpServletRequest request){
+        Anuncio anuncio = servicioMascotaPerdida.getAnuncioById(idanuncio);
+        String email = servicioLogin.obtenerUsuarioConectado(request).getEmail();
+        ModelMap modelo = new ModelMap();
+        modelo.put("anuncio", anuncio);
+        try{
+            Preference preference = servicioMercadoPago.generarPreferenceDeAnuncio(anuncio, email);
+            modelo.put("preference", preference);
+        }
+        catch (MPException exception){
+
+        }
+        return new ModelAndView("mascotas-perdidas/pago-de-recompensa", modelo);
+    }
+
+
 }
