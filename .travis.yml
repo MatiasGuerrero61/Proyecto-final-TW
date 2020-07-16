@@ -1,4 +1,3 @@
-
 language: java
 script: mvn clean test
 jdk:
@@ -9,6 +8,7 @@ notifications:
     recipients:
       - morinigodiego21@gmail.com # Colocar el email registrado en GitHub
       - guerreromatias24@gmail.com # Colocar el email registrado en GitHub
-	  - drflores.ing@gmail.com # Colocar el email registrado en GitHub
+      - drflores.ing@gmail.com # Colocar el email registrado en GitHub
+      - diego.navarrete92@gmail.com # Colocar el email registrado en GitHub
     on_success: change # default: change - Avisa cuando hay algun cambio en el proyecto
     on_failure: always # default: always - Avisa siempre que el proceso de build falle en Travis
