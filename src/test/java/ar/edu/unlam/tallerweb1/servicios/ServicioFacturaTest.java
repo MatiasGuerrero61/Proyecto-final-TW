@@ -1,14 +1,9 @@
-package ar.edu.unlam.tallerweb1.servicio;
+package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Carrito;
 import ar.edu.unlam.tallerweb1.modelo.EnumEstadoDeCompra;
 import ar.edu.unlam.tallerweb1.modelo.Factura;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioFactura;
-import ar.edu.unlam.tallerweb1.servicios.ServicioCarrito;
-import ar.edu.unlam.tallerweb1.servicios.ServicioDescuento;
-import ar.edu.unlam.tallerweb1.servicios.ServicioFactura;
-import ar.edu.unlam.tallerweb1.servicios.ServicioFacturaImpl;
-import ar.edu.unlam.tallerweb1.servicios.ServicioItem;
 import org.junit.Test;
 
 import java.math.BigDecimal;
