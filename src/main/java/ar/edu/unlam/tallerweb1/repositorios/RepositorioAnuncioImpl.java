@@ -33,7 +33,7 @@ public class RepositorioAnuncioImpl implements RepositorioAnuncio {
         final Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Anuncio.class);
 
-        Anuncio encontrado = (Anuncio) criteria.add(Restrictions.eq("id",id)).uniqueResult();
+        Anuncio encontrado = session.get(Anuncio.class, id);
         if(encontrado != null){
             return encontrado;
         }
@@ -66,7 +66,9 @@ public class RepositorioAnuncioImpl implements RepositorioAnuncio {
 
     @Override
     public void deleteAnuncioPorId(long id) {
-        // TODO Auto-generated method stub
+        final Session session = sessionFactory.getCurrentSession();
+        Anuncio anuncio = session.get(Anuncio.class, id);
+        session.delete(anuncio);
 
     }
 

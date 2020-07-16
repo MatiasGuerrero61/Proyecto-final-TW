@@ -28,6 +28,11 @@ public class ServicioAnuncioImpl implements ServicioAnuncio{
 	}
 
 	@Override
+	public void borrarAnuncioById(Long id) {
+		repoAnuncio.deleteAnuncioPorId(id);
+	}
+
+	@Override
 	public List<Anuncio> getAnuncios() {
 		return repoAnuncio.obtenerAnuncios();
 	}
@@ -35,5 +40,10 @@ public class ServicioAnuncioImpl implements ServicioAnuncio{
 	@Override
 	public List<Anuncio> getAnunciosByUsuario(Usuario usuario) {
 		return repoAnuncio.obtenerAnunciosByUsuario(usuario);
+	}
+
+	@Override
+	public Anuncio getAnuncioById(Long idanuncio) {
+		return repoAnuncio.obtenerAnuncioPorId(idanuncio);
 	}
 }

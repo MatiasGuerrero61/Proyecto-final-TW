@@ -9,7 +9,11 @@ public interface ServicioAnuncio {
 
     void guardar(Anuncio anuncio);
 
+    void borrarAnuncioById(Long id);
+
     List<Anuncio> getAnuncios();
 
     List<Anuncio> getAnunciosByUsuario(Usuario usuario);
+
+    Anuncio getAnuncioById(Long idanuncio);
 }
