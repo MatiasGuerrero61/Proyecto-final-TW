@@ -14,7 +14,9 @@
 <%@include file="../shared/header.jsp" %>
 <div class="container">
 
-    <h1>Lista de anuncios de mascotas perdidas</h1>
+    <h1 class="mb-5">Bienvenidos a la p&aacute;gina de mascotas</h1>
+
+    <h3 class="mt-3">anuncios de mascotas perdidas</h3>
     <c:choose>
         <c:when test="${anuncios.isEmpty()}">
             <h4>No hay anuncios disponibles</h4>
