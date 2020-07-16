@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Carrito;
 import ar.edu.unlam.tallerweb1.modelo.Descuento;
 import ar.edu.unlam.tallerweb1.modelo.EnumEstadoDeCompra;
 import ar.edu.unlam.tallerweb1.modelo.Factura;
+import ar.edu.unlam.tallerweb1.modelo.Facturacion;
 import ar.edu.unlam.tallerweb1.modelo.Item;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioFactura;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -159,4 +161,11 @@ public class ServicioFacturaImpl implements ServicioFactura {
         }
         return true;
     }
+
+	@Override
+	public List<Facturacion> obtenerFacturacionMensual(String inputMonth) {
+		LocalDateTime fechaDesde = LocalDate.parse(inputMonth + "-01").atStartOfDay();
+		LocalDateTime fechaHasta = fechaDesde.plusMonths(1L);
+		return this.servicioFacturaDao.obtenerFacturacion(fechaDesde, fechaHasta); 
+	}
 }
